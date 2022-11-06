@@ -1,3 +1,7 @@
+import { User } from "firebase/auth";
+
+import { UserModel } from "models";
+
 type ObjectValue = Record<string, unknown>;
 
 const convertFormDataValue = (value: unknown): File | string => {
@@ -16,3 +20,10 @@ export const mapToFormData = (obj: ObjectValue): FormData => {
 
   return formData;
 };
+
+export const mapUserData = (user: User): UserModel => ({
+  id: user.uid,
+  photoUrl: user.photoURL,
+  displayName: user.displayName,
+  email: user.email,
+});

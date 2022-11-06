@@ -1,0 +1,31 @@
+.snackbar {
+  min-width: 350px !important;
+  font-weight: 500 !important;
+  border-radius: 16px !important;
+  font-family: Source Sans Pro, sans-serif !important;
+  background-color: #fff !important;
+}
+
+.success {
+  @extend .snackbar;
+  border: 2px solid #629f5d;
+  color: #629f5d !important;
+}
+
+.warning {
+  @extend .snackbar;
+  border: 2px solid #d59858;
+  color: #d59858 !important;
+}
+
+.error {
+  @extend .snackbar;
+  border: 2px solid #b94c48;
+  color: #b94c48 !important;
+}
+
+.info {
+  @extend .snackbar;
+  border: 2px solid #5da8c2;
+  color: #5da8c2 !important;
+}

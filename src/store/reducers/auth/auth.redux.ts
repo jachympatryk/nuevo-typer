@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { UserDetailsModel, UserModel } from "models";
+import { UserModel } from "models";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 
 interface UserData {
@@ -29,17 +29,12 @@ const auth = createSlice({
     setUser: (state, action: PayloadAction<UserModel>) => {
       state.user = action.payload;
     },
-    setUserDetails: (state, action: PayloadAction<UserDetailsModel>) => {
-      if (state.user) {
-        state.user.details = action.payload;
-      }
-    },
     setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
     },
   },
 });
 
-export const { resetUserStore, setUser, setUserDetails, setToken } = auth.actions;
+export const { resetUserStore, setUser, setToken } = auth.actions;
 
 export default auth.reducer;

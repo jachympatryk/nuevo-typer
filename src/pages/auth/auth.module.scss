@@ -83,4 +83,13 @@
 .submitButton {
   padding: 12px 64px;
   font-size: 16px;
+  text-transform: unset;
+  gap: 24px;
+}
+
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
 }

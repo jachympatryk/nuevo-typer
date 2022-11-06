@@ -10,6 +10,9 @@ import { Button, FormInput } from "react-modern-components";
 import { loginSchema, initialLoginValues } from "../login.constants";
 import { LoginData } from "../login.types";
 // import { STORAGE_FIELDS } from "constants/storage-fields.constants";
+import { REGISTER_PAGE } from "constants/routes.constants";
+
+import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
 
 import styles from "../../auth.module.scss";
 
@@ -52,14 +55,20 @@ export const LoginForm: React.FC = () => {
         <div className={styles.row}>
           <p className={styles.linkText}>
             Nie masz konta?{" "}
-            <Link to="/" className={styles.linkSpan}>
+            <Link to={REGISTER_PAGE.path} className={styles.linkSpan}>
               Zarejestruj się!
             </Link>
           </p>
 
-          <Button disabled={false} type="submit" variant="contained" size="large" className={styles.submitButton}>
-            Zaloguj
-          </Button>
+          <div className={styles.buttonRow}>
+            <Button type="submit" variant="outlined" className={styles.submitButton} size="large">
+              <GoogleLogo />
+            </Button>
+
+            <Button disabled={false} type="submit" variant="contained" size="large" className={styles.submitButton}>
+              Zaloguj się
+            </Button>
+          </div>
         </div>
       </Form>
     </Formik>
