@@ -17,7 +17,7 @@ import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { LANDING_PAGE, LOGIN_PAGE } from "constants/routes.constants";
 import { formValidationSchema, registerInitialValues } from "./register.constants";
 
-import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
+// import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
 
 import styles from "../auth.module.scss";
 
@@ -65,6 +65,7 @@ export const RegisterPage: React.FC = () => {
     setSubmitting(false);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleProviderRegister =
     ({ authProvider }: ProviderArguments) =>
     () => {
@@ -85,12 +86,12 @@ export const RegisterPage: React.FC = () => {
               navigate(LANDING_PAGE.path);
             })
             .catch(() => {
-              enqueueSnackbar("Wystąpił błąd podczas rejestracji.", { variant: "error" });
+              enqueueSnackbar("Wystąpił błąd podczas rejestracji. 1", { variant: "error" });
             });
         })
         .catch((error: AuthError) => {
           const errorName = error.code as FirebaseErrorType;
-          const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas rejestracji.";
+          const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas rejestracji. 2";
 
           enqueueSnackbar(message, { variant: "error" });
         });
@@ -124,16 +125,16 @@ export const RegisterPage: React.FC = () => {
                 </p>
 
                 <div className={styles.buttonRow}>
-                  <Button
-                    disabled={isSubmitting}
-                    type="submit"
-                    variant="outlined"
-                    className={styles.submitButton}
-                    size="large"
-                    onClick={handleProviderRegister({ authProvider: "google" })}
-                  >
-                    <GoogleLogo />
-                  </Button>
+                  {/* <Button */}
+                  {/*  disabled={isSubmitting} */}
+                  {/*  type="submit" */}
+                  {/*  variant="outlined" */}
+                  {/*  className={styles.submitButton} */}
+                  {/*  size="large" */}
+                  {/*  onClick={handleProviderRegister({ authProvider: "google" })} */}
+                  {/* > */}
+                  {/*  <GoogleLogo /> */}
+                  {/* </Button> */}
 
                   <Button
                     disabled={isSubmitting}

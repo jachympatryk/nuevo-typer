@@ -20,3 +20,10 @@ export const REGISTER_PAGE: RouteConstant = {
   auth: false,
   showNavigation: false,
 };
+
+export const LOGOUT_PAGE: RouteConstant = {
+  path: "/logout",
+  name: "Wylogowanie",
+  auth: false,
+  showNavigation: false,
+};

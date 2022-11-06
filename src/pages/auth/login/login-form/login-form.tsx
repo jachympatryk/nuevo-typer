@@ -16,7 +16,7 @@ import { LANDING_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { loginSchema, initialLoginValues } from "../login.constants";
 
-import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
+// import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
 
 import styles from "../../auth.module.scss";
 
@@ -57,6 +57,7 @@ export const LoginForm: React.FC = () => {
     setSubmitting(false);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleProviderLogin =
     ({ authProvider }: ProviderArguments) =>
     () => {
@@ -97,15 +98,15 @@ export const LoginForm: React.FC = () => {
           </p>
 
           <div className={styles.buttonRow}>
-            <Button
-              type="submit"
-              variant="outlined"
-              className={styles.submitButton}
-              size="large"
-              onClick={handleProviderLogin({ authProvider: "google" })}
-            >
-              <GoogleLogo />
-            </Button>
+            {/* <Button */}
+            {/*  type="submit" */}
+            {/*  variant="outlined" */}
+            {/*  className={styles.submitButton} */}
+            {/*  size="large" */}
+            {/*  onClick={handleProviderLogin({ authProvider: "google" })} */}
+            {/* > */}
+            {/*  <GoogleLogo /> */}
+            {/* </Button> */}
 
             <Button disabled={false} type="submit" variant="contained" size="large" className={styles.submitButton}>
               Zaloguj się

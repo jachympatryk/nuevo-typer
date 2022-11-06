@@ -5,14 +5,10 @@ import { Page } from "components";
 import { RouteConfig } from "types";
 import { LOGIN_PAGE } from "constants/routes.constants";
 
-export const PageRoute: React.FC<RouteConfig> = ({ component: Component, showNavigation, auth }) => {
+export const PageRoute: React.FC<RouteConfig> = ({ component, showNavigation, auth }) => {
   const isAuthenticated = true;
 
   if (auth && !isAuthenticated) return <Navigate to={LOGIN_PAGE.path} />;
 
-  return (
-    <Page showNavigation={showNavigation}>
-      <Component />
-    </Page>
-  );
+  return <Page showNavigation={showNavigation}>{component}</Page>;
 };
