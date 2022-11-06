@@ -93,7 +93,8 @@
       "files": ["*redux.ts", "*index.ts"],
       "rules": {
         "no-param-reassign": "off",
-        "import/no-default-export": "off"
+        "import/no-default-export": "off",
+        "no-restricted-exports": "off"
       }
     }
   ]

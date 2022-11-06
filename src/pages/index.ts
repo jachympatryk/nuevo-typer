@@ -1,3 +1,3 @@
-export * from "./auth/login/login.page";
+export * from "./auth";
 
 export * from "./landing/landing.page";

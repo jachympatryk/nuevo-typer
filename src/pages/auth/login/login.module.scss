@@ -1,0 +1,85 @@
+@use "src/assets/styles/colors";
+@use "src/assets/styles/breakpoints";
+
+.textContainer {
+  width: 100%;
+  align-self: flex-start;
+  margin-bottom: 24px;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    margin-bottom: 48px;
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    padding: 0 84px;
+  }
+}
+
+.form {
+  width: 100%;
+  max-width: 960px;
+  align-self: flex-start;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 500;
+  align-self: flex-start;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: colors.$text_dark_gray;
+  font-weight: 500;
+}
+
+.extraInfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 14px;
+}
+
+.getStartedTitle {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.linkText {
+  font-size: 15px;
+  font-weight: 600;
+  color: colors.$gray_dark_secondary;
+}
+
+.linkSpan {
+  color: colors.$blue;
+  text-decoration: underline !important;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    margin-top: 64px;
+  }
+}
+
+.submitButton {
+  padding: 12px 64px;
+  font-size: 16px;
+}

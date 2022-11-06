@@ -1,0 +1,85 @@
+@use "src/assets/styles/colors";
+@use "src/assets/styles/breakpoints";
+
+.innerWrapper {
+  padding: 96px 0 !important;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background-color: hsl(0, 0%, 100%);
+}
+
+.box {
+  width: 100%;
+  padding: 32px;
+  max-width: 670px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 640px) {
+  .mainWrapper {
+    background-image: none;
+  }
+  .innerWrapper {
+    padding: 0;
+    max-width: max-content;
+  }
+  .box {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .box {
+    padding: 16px;
+  }
+}
+
+// -----------
+
+.container {
+  width: 100%;
+  height: 100vh;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+}
+
+.desktopSide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: colors.$background_primary;
+  position: relative;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: colors.$white;
+}
+
+.logo {
+  width: 70%;
+  max-width: 300px;
+}
+
+.background {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 100%;
+  transform: translateX(-50%) scale(3);
+}

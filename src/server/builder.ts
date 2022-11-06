@@ -2,13 +2,13 @@ import { Builder } from "@better-typed/hyper-fetch";
 
 import { ServerErrorType } from "./server.types";
 import { environment } from "config/environment.config";
-import { REFRESH_TOKEN_STORAGE_FIELD } from "constants/auth.constants";
+import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 
 export const builder = new Builder<ServerErrorType>({ baseUrl: environment.serverUrl })
   .setDebug(true)
   .onError(async (res, command) => {
     const [, , status] = res;
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN_STORAGE_FIELD);
+    const refreshToken = localStorage.getItem(STORAGE_FIELDS.refresh_token);
     const isLoginEndpoint = command.endpoint.includes("login");
 
     if (status === 401 && !isLoginEndpoint && !command.used && refreshToken) {
