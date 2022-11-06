@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useDidUpdate } from "@better-typed/react-lifecycle-hooks";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { PageRoute } from "components";
 import { setUser, setToken, RootState } from "store";
 import { mapUserData } from "utils";
-import { LOGOUT_PAGE } from "constants/routes.constants";
+import { LANDING_PAGE, LOGIN_PAGE, LOGOUT_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { routes } from "config/routes.config";
 import { auth } from "config/firebase.config";
@@ -18,8 +18,10 @@ export const App: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const { pathname } = useLocation();
   const { user } = useSelector((state: RootState) => state.auth);
+
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useDidUpdate(
     () => {
@@ -31,6 +33,10 @@ export const App: React.FC = () => {
             .then((idToken) => {
               dispatch(setUser(mapUserData(firebaseUser)));
               dispatch(setToken(idToken));
+
+              if (pathname.includes(LOGIN_PAGE.path) || pathname.includes(REGISTER_PAGE.path)) {
+                navigate(LANDING_PAGE.path);
+              }
 
               localStorage.setItem(STORAGE_FIELDS.token, idToken);
               localStorage.setItem(STORAGE_FIELDS.refresh_token, firebaseUser.refreshToken);
