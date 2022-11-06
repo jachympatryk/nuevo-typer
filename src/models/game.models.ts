@@ -4,12 +4,13 @@ export type GameResult = {
 };
 
 export type Round =
-  | "Faza grupowa - Mecz 1"
+  | "Faza grupowa - mecz 1"
   | "Faza grupowa - mecz 2"
   | "Faza grupowa - mecz 3"
   | "1/8 finału"
-  | "Ćwierćfinały"
-  | "Półfinały"
+  | "Ćwierćfinał"
+  | "Półfinał"
+  | "Mecz o 3 miejsce"
   | "Finał";
 
 export type GameModel = {

@@ -3,6 +3,7 @@ import { doc, getDocs, setDoc, query, where } from "firebase/firestore";
 import { PredictionModel } from "models";
 import { getCollectionRef, firestoreCollections } from "config/firebase.config";
 import { CreatePredictionArguments } from "firestore/predictions/predictions.types";
+import { getCurrentRound } from "utils/game-round.utils";
 
 export const getDocumentId = (userId: string, gameId: string) => {
   return `${userId}_${gameId}`;
@@ -16,7 +17,7 @@ export const getAllPredictions = () => {
 };
 
 export const getCurrentRoundPredictions = () => {
-  const currentRound = "Faza grupowa - mecz 1";
+  const currentRound = getCurrentRound(new Date());
 
   // get predictions of all users from current round - Group stage 1st / Group stage 2nd ...
   const predictionsRef = getCollectionRef<PredictionModel[]>(firestoreCollections.predictions);

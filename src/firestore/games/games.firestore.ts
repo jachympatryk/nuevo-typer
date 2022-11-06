@@ -2,6 +2,7 @@ import { doc, getDoc, getDocs, query, where } from "firebase/firestore";
 
 import { GameModel } from "models";
 import { getCollectionRef, firestoreCollections } from "config/firebase.config";
+import { getCurrentRound } from "utils/game-round.utils";
 
 export const getAllGames = () => {
   const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
@@ -11,7 +12,7 @@ export const getAllGames = () => {
 };
 
 export const getCurrentRoundGames = () => {
-  const currentRound = "Faza grupowa - mecz 1";
+  const currentRound = getCurrentRound(new Date());
 
   const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
   const gamesQuery = query(gamesRef, where("round", "==", currentRound));
