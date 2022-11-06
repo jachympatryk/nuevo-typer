@@ -1,48 +1,84 @@
 import React from "react";
 import { Form, Formik, FormikHelpers } from "formik";
-import { Link } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { useSnackbar } from "notistack";
-// import { useSubmit } from "@better-typed/react-hyper-fetch";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 import { Button, FormInput } from "react-modern-components";
+import { signInWithPopup, signInWithEmailAndPassword, User, AuthError } from "firebase/auth";
 
-// import { setToken } from "store";
-import { loginSchema, initialLoginValues } from "../login.constants";
 import { LoginData } from "../login.types";
-// import { STORAGE_FIELDS } from "constants/storage-fields.constants";
-import { REGISTER_PAGE } from "constants/routes.constants";
+import { setUser, setToken } from "store";
+import { mapUserData } from "utils";
+import { FirebaseErrorType, ProviderArguments } from "pages/auth/auth.types";
+import { auth } from "config/firebase.config";
+import { providers, FIREBASE_ERRORS } from "pages/auth/auth.constants";
+import { LANDING_PAGE, REGISTER_PAGE } from "constants/routes.constants";
+import { STORAGE_FIELDS } from "constants/storage-fields.constants";
+import { loginSchema, initialLoginValues } from "../login.constants";
 
 import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
 
 import styles from "../../auth.module.scss";
 
 export const LoginForm: React.FC = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
-  // const { submit, submitting, error, onSubmitSuccess, onSubmitError } = useSubmit(login);
-  // onSubmitSuccess(({ response }) => {
-  // dispatch(setToken(response.token));
-  // localStorage.setItem(STORAGE_FIELDS.token, response.token);
-  // localStorage.setItem(STORAGE_FIELDS.refresh_token, response.refreshToken);
-  //
-  // navigate(SELECT_COMPANY_PAGE.path);
-  // });
-  // onSubmitError(() => {
-  // enqueueSnackbar(t("login.loginError"), { variant: "error" });
-  // });
+  const onLoginSuccess = (user: User) => {
+    user
+      .getIdToken()
+      .then((idToken) => {
+        const userData = mapUserData(user);
+        dispatch(setUser(userData));
+        dispatch(setToken(idToken));
 
-  const handleSubmit = async (values: LoginData, { setSubmitting }: FormikHelpers<LoginData>) => {
-    // await submit({ data: values });
+        localStorage.setItem(STORAGE_FIELDS.token, idToken);
+        localStorage.setItem(STORAGE_FIELDS.refresh_token, user.refreshToken);
+
+        navigate(LANDING_PAGE.path);
+      })
+      .catch(() => enqueueSnackbar("Wystąpił błąd podczas logowania", { variant: "error" }));
+  };
+
+  const handleSubmit = (values: LoginData, { setSubmitting }: FormikHelpers<LoginData>) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then(({ user }) => {
+        onLoginSuccess(user);
+      })
+      .catch((error: AuthError) => {
+        const errorName = error.code as FirebaseErrorType;
+        const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas logowania";
+
+        enqueueSnackbar(message, { variant: "error" });
+      });
+
     setSubmitting(false);
   };
+
+  const handleProviderLogin =
+    ({ authProvider }: ProviderArguments) =>
+    () => {
+      const provider = providers[authProvider];
+
+      signInWithPopup(auth, provider)
+        .then((userCredential) => {
+          const { user } = userCredential;
+
+          onLoginSuccess(user);
+        })
+        .catch((error: AuthError) => {
+          const errorName = error.code as FirebaseErrorType;
+          const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas logowania";
+
+          enqueueSnackbar(message, { variant: "error" });
+        });
+    };
 
   return (
     <Formik initialValues={initialLoginValues} onSubmit={handleSubmit} validationSchema={loginSchema}>
       <Form className={styles.form}>
-        {/* {error && <Alert severity="error">{error?.message}</Alert>} */}
         <FormInput name="email" label="Email" size="large" />
         <FormInput name="password" label="Hasło" type="password" size="large" />
         <p className={styles.linkText}>
@@ -61,7 +97,13 @@ export const LoginForm: React.FC = () => {
           </p>
 
           <div className={styles.buttonRow}>
-            <Button type="submit" variant="outlined" className={styles.submitButton} size="large">
+            <Button
+              type="submit"
+              variant="outlined"
+              className={styles.submitButton}
+              size="large"
+              onClick={handleProviderLogin({ authProvider: "google" })}
+            >
               <GoogleLogo />
             </Button>
 
