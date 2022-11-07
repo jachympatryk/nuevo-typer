@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
+    "date-fns": "^2.29.3",
     "firebase": "^9.13.0",
     "notistack": "^2.0.8",
     "query-string": "^7.1.1",

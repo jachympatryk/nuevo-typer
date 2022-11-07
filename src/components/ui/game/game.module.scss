@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+  height: max-content;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center !important;
+}
+
+.flag {
+  height: 40px;
+  width: 80px;
+  background-color: #000;
+}
+
+.textField {
+  width: 50px !important;
+  border-radius: 20px !important;
+}
+
+.editingButton {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  background-color: #ECEAEC;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 8px;
+}
