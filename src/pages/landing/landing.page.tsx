@@ -11,12 +11,10 @@ export const LandingPage: React.FC = () => {
   const { data } = gameData;
 
   return (
-    <div>
-      <div className={styles.content}>
-        {data?.map((game) => (
-          <Game game={game} />
-        ))}
-      </div>
+    <div className={styles.content}>
+      {data?.map((game) => (
+        <Game game={game} />
+      ))}
     </div>
   );
 };

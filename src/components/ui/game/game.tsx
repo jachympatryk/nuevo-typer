@@ -1,66 +1,105 @@
 import React, { useState } from "react";
-import { IconButton, Typography } from "@mui/material";
 import classNames from "classnames";
 import { Form, Formik } from "formik";
+import { IconButton, FormInput } from "react-modern-components";
 
 import { GameProps } from "./game.types";
-import { FormTextField } from "components";
+import { canEditGame } from "utils/game.utils";
 import { initialValues } from "./game.constants";
 
-import { ReactComponent as EditIcon } from "assets/icons/edit.svg";
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
 import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
 
 import styles from "./game.module.scss";
 
 export const Game: React.FC<GameProps> = ({ game, className }) => {
+  const { date, result, stadium, hostTeam, guestTeam } = game;
+  const { canEdit, editToDate } = canEditGame(date);
+
   const [isEditing, setIsEditing] = useState(false);
 
-  const { date, result, stadium, hostTeam, guestTeam } = game;
-
-  const handleEditing = (value: boolean) => () => {
-    setIsEditing(value);
+  const handleEditing = (value: boolean) => () => setIsEditing(value);
+  const handleEditCancel = (callback: () => void) => () => {
+    setIsEditing(false);
+    callback();
   };
 
+  const gameDate = new Date(date).toLocaleString();
+
   const gameEnded = result !== null;
-  const isEditable = true;
+  const showEditButton = canEdit && !isEditing && !gameEnded;
+  const showEditContent = canEdit && isEditing && !gameEnded;
 
   return (
     <Formik initialValues={initialValues} onSubmit={() => {}}>
-      <Form className={classNames(styles.container, className)}>
-        <div className={styles.team}>
-          <Typography>{hostTeam}</Typography>
-          <div className={styles.flag} />
-          {isEditable && <FormTextField className={styles.textField} name="hostTeam" type="number" variant="filled" />}
-          {gameEnded && <Typography className={styles.result}>{result.host}</Typography>}
-        </div>
-        <div className={styles.info}>
-          <Typography>{date.toString()}</Typography>
-          <Typography>{stadium}</Typography>
-          <Typography>edycja mozliwa do 22.11.2022</Typography>
-          {isEditable && !isEditing && (
-            <IconButton className={styles.icon} onClick={handleEditing(true)}>
-              <EditIcon />
-            </IconButton>
-          )}
-          {isEditable && isEditing && (
-            <div className={styles.editingButton}>
-              <IconButton className={styles.icon} onClick={handleEditing(false)}>
-                <CancelIcon />
-              </IconButton>
-              <IconButton className={styles.icon}>
-                <AcceptIcon />
-              </IconButton>
-            </div>
-          )}
-        </div>
-        <div className={styles.team}>
-          <Typography>{guestTeam}</Typography>
-          <div className={styles.flag} />
-          {isEditable && <FormTextField className={styles.textField} name="guestTeam" type="number" variant="filled" />}
-          {gameEnded && <Typography className={styles.result}>{result.guest}</Typography>}
-        </div>
-      </Form>
+      {({ handleSubmit, resetForm }) => (
+        <Form className={classNames(styles.container, className)}>
+          <div className={styles.team}>
+            <h5 className={styles.teamName}>{hostTeam}</h5>
+            <div className={styles.flag} />
+            {isEditing && (
+              <FormInput
+                label=""
+                className={styles.textField}
+                name="hostTeam"
+                type="number"
+                min={0}
+                max={10}
+                helperText={`Gospodarz: ${hostTeam}`}
+              />
+            )}
+            {gameEnded && <h6 className={styles.result}>{result?.host}</h6>}
+          </div>
+
+          <div className={styles.info}>
+            <p className={styles.stadium}>{stadium}</p>
+            <p className={styles.dateCaption}>{gameDate}</p>
+
+            {canEdit && !gameEnded && (
+              <p className={styles.caption}>
+                edycja możliwa do <br />
+                <span className={styles.date}>{editToDate.toLocaleString()}</span>
+              </p>
+            )}
+
+            {gameEnded && (
+              <p className={styles.caption}>
+                <span className={styles.date}>Mecz został zakończony</span>
+              </p>
+            )}
+
+            {showEditButton && <IconButton onClick={handleEditing(true)} variant="edit" />}
+
+            {showEditContent && (
+              <div className={styles.editingButton}>
+                <IconButton className={styles.cancelButton} onClick={handleEditCancel(resetForm)} variant="none">
+                  <CancelIcon />
+                </IconButton>
+                <IconButton className={styles.submitButton} onClick={handleSubmit} variant="none">
+                  <AcceptIcon />
+                </IconButton>
+              </div>
+            )}
+          </div>
+
+          <div className={styles.team}>
+            <h5 className={styles.teamName}>{guestTeam}</h5>
+            <div className={styles.flag} />
+            {isEditing && (
+              <FormInput
+                className={styles.guestTextField}
+                label=""
+                name="guestTeam"
+                type="number"
+                min={0}
+                max={10}
+                helperText={`Gość: ${guestTeam}`}
+              />
+            )}
+            {gameEnded && <h6 className={styles.result}>{result?.guest}</h6>}
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 };

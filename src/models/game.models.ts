@@ -14,6 +14,7 @@ export type Round =
   | "Finał";
 
 export type GameModel = {
+  id: string;
   hostTeam: string;
   guestTeam: string;
   date: Date | string;

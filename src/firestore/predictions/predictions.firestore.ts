@@ -40,12 +40,14 @@ export const getUserPredictions = (userId: string) => {
   return getDocs(predictionQuery);
 };
 
-export const createPrediction = ({ userId, gameId, details }: CreatePredictionArguments) => {
-  const predictionsRef = getCollectionRef<PredictionModel>(firestoreCollections.predictions);
-  const id = getDocumentId(userId, gameId);
+export const createPrediction = ({ user, gameId, details }: CreatePredictionArguments) => {
+  const { id, displayName } = user;
 
-  const predictionDocument = doc(predictionsRef, id);
-  const values: PredictionModel = { userId, gameId, ...details };
+  const predictionsRef = getCollectionRef<PredictionModel>(firestoreCollections.predictions);
+  const documentId = getDocumentId(id, gameId);
+
+  const predictionDocument = doc(predictionsRef, documentId);
+  const values: PredictionModel = { userId: id, userName: displayName, gameId, ...details };
 
   return setDoc(predictionDocument, values);
 };
