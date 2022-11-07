@@ -15,7 +15,9 @@ export type Round =
 
 export type GameModel = {
   id: string;
+  hostId: string;
   hostTeam: string;
+  guestId: string;
   guestTeam: string;
   date: Date | string;
   stadium: string;

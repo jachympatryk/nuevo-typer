@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 
 import { GameModel } from "models";
 import { getCollectionRef, firestoreCollections } from "config/firebase.config";
@@ -25,4 +25,12 @@ export const getSingleGame = (gameId: string) => {
   const gameDocument = doc(gamesRef, gameId);
 
   return getDoc(gameDocument);
+};
+
+export const createGame = (id: string, team: Omit<GameModel, "id">) => {
+  const gamesRef = getCollectionRef<GameModel>(firestoreCollections.games);
+
+  const gameDocument = doc(gamesRef, id);
+
+  return setDoc(gameDocument, team);
 };

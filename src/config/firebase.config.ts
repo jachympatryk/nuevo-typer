@@ -17,6 +17,7 @@ const firebaseConfig = {
 const firestoreCollections = {
   games: "games",
   predictions: "predictions",
+  teams: "teams",
 };
 
 // Initialize Firebase
