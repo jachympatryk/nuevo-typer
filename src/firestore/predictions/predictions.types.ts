@@ -1,4 +1,4 @@
-import { GameResult } from "models";
+import { GameResult, UserModel } from "models";
 
 export type CreatePredictionData = {
   hostTeam: string;
@@ -8,7 +8,7 @@ export type CreatePredictionData = {
 };
 
 export type CreatePredictionArguments = {
-  userId: string;
+  user: UserModel;
   gameId: string;
   details: CreatePredictionData;
 };

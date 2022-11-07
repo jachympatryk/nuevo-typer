@@ -24,6 +24,6 @@ export const mapToFormData = (obj: ObjectValue): FormData => {
 export const mapUserData = (user: User): UserModel => ({
   id: user.uid,
   photoUrl: user.photoURL,
-  displayName: user.displayName,
+  displayName: user?.displayName || user.uid,
   email: user.email,
 });

@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { PageRoute } from "components";
 import { setUser, setToken, RootState } from "store";
 import { mapUserData } from "utils";
-import { LANDING_PAGE, LOGIN_PAGE, LOGOUT_PAGE, REGISTER_PAGE } from "constants/routes.constants";
+import { HERO_PAGE, LANDING_PAGE, LOGIN_PAGE, LOGOUT_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { routes } from "config/routes.config";
 import { auth } from "config/firebase.config";
@@ -34,7 +34,11 @@ export const App: React.FC = () => {
               dispatch(setUser(mapUserData(firebaseUser)));
               dispatch(setToken(idToken));
 
-              if (pathname.includes(LOGIN_PAGE.path) || pathname.includes(REGISTER_PAGE.path)) {
+              if (
+                pathname.includes(HERO_PAGE.path) ||
+                pathname.includes(LOGIN_PAGE.path) ||
+                pathname.includes(REGISTER_PAGE.path)
+              ) {
                 navigate(LANDING_PAGE.path);
               }
 

@@ -1,0 +1,92 @@
+@use "src/assets/styles/colors";
+
+.container {
+  width: 100%;
+  height: max-content;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center !important;
+  margin-top: 40px;
+}
+
+.flag {
+  height: 60px;
+  width: 100px;
+  background-color: #000;
+}
+
+.textField {
+  width: 50px;
+  text-align: center;
+}
+
+.guestTextField {
+  @extend .textField;
+  align-self: flex-end;
+}
+
+.editingButton {
+  display: flex;
+  gap: 10px;
+}
+
+.cancelButton {
+  background-color: colors.$gray_accent;
+}
+
+.submitButton {
+  background-color: colors.$green_accent;
+}
+
+.teamName {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.result {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+.caption {
+  color: colors.$gray;
+  margin: 0;
+  font-size: 12px;
+}
+
+.dateCaption {
+  color: colors.$gray;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stadium {
+  color: colors.$text_dark_gray;
+  margin: 0;
+  font-size: 12px;
+}
+
+.date {
+  font-weight: 600;
+}

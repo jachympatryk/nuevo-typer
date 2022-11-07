@@ -4,11 +4,16 @@
 .container {
   width: 100%;
   min-height: 100vh;
+}
+
+.navigationContainer {
+  @extend .container;
 
   @media screen and (min-width: breakpoints.$media_l) {
     display: grid;
     grid-template-columns: 300px 1fr;
   }
+
   @media screen and (min-width: breakpoints.$media_xl) {
     grid-template-columns: 400px 1fr;
   }
