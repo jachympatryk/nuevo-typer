@@ -17,17 +17,20 @@ export const Navbar = () => {
 
   return (
     <div className={styles.container} style={{ backgroundImage: `url(${background})` }}>
-      <Nuevo className={styles.nuevo} />
-      {showBurger && <BurgerMenu />}
-      {!showBurger && (
-        <div className={styles.navigation}>
-          {linksData.map(({ path, label }) => (
-            <Link to={path} className={styles.link}>
-              {label}
-            </Link>
-          ))}
-        </div>
-      )}
+      <div className={styles.overlay} />
+      <div className={styles.content}>
+        <Nuevo className={styles.nuevo} />
+        {showBurger && <BurgerMenu />}
+        {!showBurger && (
+          <div className={styles.navigation}>
+            {linksData.map(({ path, label }) => (
+              <Link to={path} className={styles.link}>
+                {label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

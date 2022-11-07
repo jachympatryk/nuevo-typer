@@ -1,5 +1,14 @@
 import { RouteConfig } from "types";
-import { HeroPage, LandingPage, LoginPage, LogoutPage, PredictionsPage, RankingPage, RegisterPage } from "pages";
+import {
+  HeroPage,
+  LandingPage,
+  LoginPage,
+  LogoutPage,
+  PredictionsPage,
+  RankingPage,
+  RegisterPage,
+  GamesListPage,
+} from "pages";
 import {
   LANDING_PAGE,
   LOGIN_PAGE,
@@ -8,6 +17,7 @@ import {
   RANKING_PAGE,
   PREDICTIONS_PAGE,
   HERO_PAGE,
+  GAMES_PAGE,
 } from "constants/routes.constants";
 
 export const routes: RouteConfig[] = [
@@ -18,4 +28,5 @@ export const routes: RouteConfig[] = [
   { ...LOGOUT_PAGE, component: <LogoutPage /> },
   { ...RANKING_PAGE, component: <RankingPage /> },
   { ...PREDICTIONS_PAGE, component: <PredictionsPage /> },
+  { ...GAMES_PAGE, component: <GamesListPage /> },
 ];
