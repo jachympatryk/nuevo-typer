@@ -5,6 +5,7 @@ import { IconButton, FormInput } from "react-modern-components";
 
 import { GameProps } from "./game.types";
 import { canEditGame } from "utils/game.utils";
+import { getCurrentRound } from "utils/game-round.utils";
 import { initialValues } from "./game.constants";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
@@ -12,9 +13,11 @@ import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
 
 import styles from "./game.module.scss";
 
+// todo: disabled state
+
 export const Game: React.FC<GameProps> = ({ game, className }) => {
-  const { date, result, stadium, hostTeam, guestTeam } = game;
-  const { canEdit, editToDate } = canEditGame(date);
+  const { date, result, stadium, hostTeam, guestTeam, round } = game;
+  const { canEdit, editToDate } = canEditGame(game);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -29,6 +32,9 @@ export const Game: React.FC<GameProps> = ({ game, className }) => {
   const gameEnded = result !== null;
   const showEditButton = canEdit && !isEditing && !gameEnded;
   const showEditContent = canEdit && isEditing && !gameEnded;
+
+  const currentRound = getCurrentRound(new Date());
+  const disabled = currentRound !== round;
 
   return (
     <Formik initialValues={initialValues} onSubmit={() => {}}>
@@ -54,6 +60,8 @@ export const Game: React.FC<GameProps> = ({ game, className }) => {
           <div className={styles.info}>
             <p className={styles.stadium}>{stadium}</p>
             <p className={styles.dateCaption}>{gameDate}</p>
+
+            {disabled && <p className={styles.caption}>Mecz zablokowany</p>}
 
             {canEdit && !gameEnded && (
               <p className={styles.caption}>
