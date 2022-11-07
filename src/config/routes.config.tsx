@@ -1,10 +1,19 @@
 import { RouteConfig } from "types";
-import { LandingPage, LoginPage, LogoutPage, RegisterPage } from "pages";
-import { LANDING_PAGE, LOGIN_PAGE, REGISTER_PAGE, LOGOUT_PAGE } from "constants/routes.constants";
+import { LandingPage, LoginPage, LogoutPage, PredictionsPage, RankingPage, RegisterPage } from "pages";
+import {
+  LANDING_PAGE,
+  LOGIN_PAGE,
+  REGISTER_PAGE,
+  LOGOUT_PAGE,
+  RANKING_PAGE,
+  PREDICTIONS_PAGE,
+} from "constants/routes.constants";
 
 export const routes: RouteConfig[] = [
   { ...LANDING_PAGE, component: <LandingPage /> },
   { ...LOGIN_PAGE, component: <LoginPage /> },
   { ...REGISTER_PAGE, component: <RegisterPage /> },
   { ...LOGOUT_PAGE, component: <LogoutPage /> },
+  { ...RANKING_PAGE, component: <RankingPage /> },
+  { ...PREDICTIONS_PAGE, component: <PredictionsPage /> },
 ];

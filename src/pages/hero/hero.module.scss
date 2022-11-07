@@ -1,0 +1,87 @@
+@use "src/assets/styles/colors";
+@use "src/assets/styles/breakpoints";
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 200px;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    gap: 20px;
+  }
+
+  @media screen and (min-width: breakpoints.$media_xl) {
+    grid-template-columns: 800px 1fr;
+  }
+}
+
+.banner {
+  height: 300px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    height: 100%;
+    align-items: center;
+    max-width: 800px;
+  }
+}
+
+.nuevoCup {
+  width: 200px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+
+  @media screen and (min-width: breakpoints.$media_l) {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: colors.$text_dark_gray !important;
+
+  h1 {
+    font-size: 32px !important;
+    font-family: Raleway, sans-serif !important;
+  }
+
+  h3 {
+    font-size: 20px !important;
+    font-family: Raleway, sans-serif !important;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.loginButton {
+  flex-grow: 1 !important;
+  max-width: 300px;
+  font-family: Raleway, sans-serif !important;
+}
+
+.registerButton {
+  font-family: Raleway, sans-serif !important;
+  background-color: transparent !important;
+  color: colors.$text_dark_gray !important;
+}

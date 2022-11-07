@@ -27,3 +27,17 @@ export const LOGOUT_PAGE: RouteConstant = {
   auth: false,
   showNavigation: false,
 };
+
+export const RANKING_PAGE: RouteConstant = {
+  path: "/ranking",
+  name: "Ranking",
+  auth: true,
+  showNavigation: false,
+};
+
+export const PREDICTIONS_PAGE: RouteConstant = {
+  path: "/prognozy",
+  name: "Prognozy",
+  auth: true,
+  showNavigation: false,
+};
