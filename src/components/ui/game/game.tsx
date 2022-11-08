@@ -7,6 +7,7 @@ import { GameProps } from "./game.types";
 import { canEditGame } from "utils/game.utils";
 import { getCurrentRound } from "utils/game-round.utils";
 import { initialValues } from "./game.constants";
+import { flags } from "constants/flags.constants";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
 import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
@@ -36,13 +37,18 @@ export const Game: React.FC<GameProps> = ({ game, className }) => {
   const currentRound = getCurrentRound(new Date());
   const disabled = currentRound !== round;
 
+  const HostIcon = flags[game.hostId];
+  const GuestIcon = flags[game.guestId];
+
   return (
     <Formik initialValues={initialValues} onSubmit={() => {}}>
       {({ handleSubmit, resetForm }) => (
         <Form className={classNames(styles.container, className)}>
           <div className={styles.team}>
             <h5 className={styles.teamName}>{hostTeam}</h5>
-            <div className={styles.flag} />
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-ignore */}
+            <HostIcon className={styles.flag} />
             {isEditing && (
               <FormInput
                 label=""
@@ -92,7 +98,9 @@ export const Game: React.FC<GameProps> = ({ game, className }) => {
 
           <div className={styles.team}>
             <h5 className={styles.teamName}>{guestTeam}</h5>
-            <div className={styles.flag} />
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-ignore */}
+            <GuestIcon className={styles.flag} />
             {isEditing && (
               <FormInput
                 className={styles.guestTextField}

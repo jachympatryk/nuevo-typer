@@ -1,7 +1,7 @@
 import React from "react";
 
 import { PageProps } from "./page.types";
-import { Navbar } from "components";
+import { Content, Navbar } from "components";
 
 import styles from "./page.module.scss";
 
@@ -11,7 +11,7 @@ export const Page: React.FC<PageProps> = ({ children, showNavigation }) => {
   return (
     <div className={showNavigation ? styles.navigationContainer : styles.container}>
       {showNavigation ? <Navbar /> : null}
-      {children}
+      <Content>{children}</Content>
     </div>
   );
 };
