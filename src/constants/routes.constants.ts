@@ -10,7 +10,7 @@ export const HERO_PAGE: RouteConstant = {
 export const LANDING_PAGE: RouteConstant = {
   path: "/home",
   name: "Strona główna",
-  auth: false,
+  auth: true,
   showNavigation: true,
 };
 

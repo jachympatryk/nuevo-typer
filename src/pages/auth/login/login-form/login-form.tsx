@@ -4,14 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { Button, FormInput } from "react-modern-components";
-import { signInWithPopup, signInWithEmailAndPassword, User, AuthError } from "firebase/auth";
+import { signInWithEmailAndPassword, User, AuthError } from "firebase/auth";
 
 import { LoginData } from "../login.types";
 import { setUser, setToken } from "store";
 import { mapUserData } from "utils";
-import { FirebaseErrorType, ProviderArguments } from "pages/auth/auth.types";
+import { FirebaseErrorType } from "pages/auth/auth.types";
 import { auth } from "config/firebase.config";
-import { providers, FIREBASE_ERRORS } from "pages/auth/auth.constants";
+import { FIREBASE_ERRORS } from "pages/auth/auth.constants";
 import { LANDING_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { loginSchema, initialLoginValues } from "../login.constants";
@@ -57,26 +57,6 @@ export const LoginForm: React.FC = () => {
     setSubmitting(false);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleProviderLogin =
-    ({ authProvider }: ProviderArguments) =>
-    () => {
-      const provider = providers[authProvider];
-
-      signInWithPopup(auth, provider)
-        .then((userCredential) => {
-          const { user } = userCredential;
-
-          onLoginSuccess(user);
-        })
-        .catch((error: AuthError) => {
-          const errorName = error.code as FirebaseErrorType;
-          const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas logowania";
-
-          enqueueSnackbar(message, { variant: "error" });
-        });
-    };
-
   return (
     <Formik initialValues={initialLoginValues} onSubmit={handleSubmit} validationSchema={loginSchema}>
       <Form className={styles.form}>
@@ -98,16 +78,6 @@ export const LoginForm: React.FC = () => {
           </p>
 
           <div className={styles.buttonRow}>
-            {/* <Button */}
-            {/*  type="submit" */}
-            {/*  variant="outlined" */}
-            {/*  className={styles.submitButton} */}
-            {/*  size="large" */}
-            {/*  onClick={handleProviderLogin({ authProvider: "google" })} */}
-            {/* > */}
-            {/*  <GoogleLogo /> */}
-            {/* </Button> */}
-
             <Button disabled={false} type="submit" variant="contained" size="large" className={styles.submitButton}>
               Zaloguj się
             </Button>

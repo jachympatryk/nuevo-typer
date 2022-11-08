@@ -4,20 +4,20 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { FormInput, Button } from "react-modern-components";
-import { createUserWithEmailAndPassword, updateProfile, AuthError, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, AuthError } from "firebase/auth";
 
 import { FormStructure } from "components";
-import { FirebaseErrorType, ProviderArguments } from "../auth.types";
+import { FirebaseErrorType } from "../auth.types";
 import { setUser, setToken } from "store";
 import { RegisterData } from "./register.types";
 import { mapUserData } from "utils";
+import { createUser } from "firestore/users/users.firestore";
+import { UserModel } from "models";
 import { auth } from "config/firebase.config";
-import { FIREBASE_ERRORS, providers } from "../auth.constants";
+import { FIREBASE_ERRORS } from "../auth.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { LANDING_PAGE, LOGIN_PAGE } from "constants/routes.constants";
 import { formValidationSchema, registerInitialValues } from "./register.constants";
-
-// import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
 
 import styles from "../auth.module.scss";
 
@@ -36,22 +36,27 @@ export const RegisterPage: React.FC = () => {
             const userData = mapUserData(user);
             dispatch(setToken(idToken));
 
-            if (auth.currentUser) {
-              const displayName = `${values.nickname} (${values.name} ${values.surname})`;
+            const displayName = `${values.nickname} (${values.name} ${values.surname})`;
 
-              updateProfile(auth.currentUser, { displayName })
-                .then(() => {
-                  dispatch(setUser({ ...userData, displayName: values.name }));
-                })
-                .catch(() => {
-                  dispatch(setUser(userData));
-                });
-            }
+            const data: UserModel = { ...userData, displayName };
 
-            localStorage.setItem(STORAGE_FIELDS.token, idToken);
-            localStorage.setItem(STORAGE_FIELDS.refresh_token, user.refreshToken);
+            createUser(data)
+              .then(() => {
+                if (auth.currentUser) {
+                  updateProfile(auth.currentUser, { displayName })
+                    .then(() => {
+                      dispatch(setUser({ ...userData, displayName }));
+                    })
+                    .catch(() => {
+                      dispatch(setUser(userData));
+                    });
+                  localStorage.setItem(STORAGE_FIELDS.token, idToken);
+                  localStorage.setItem(STORAGE_FIELDS.refresh_token, user.refreshToken);
 
-            navigate(LANDING_PAGE.path);
+                  navigate(LANDING_PAGE.path);
+                }
+              })
+              .catch(() => enqueueSnackbar("Wystąpił błąd podczas rejestracji", { variant: "error" }));
           })
           .catch(() => enqueueSnackbar("Wystąpił błąd podczas rejestracji", { variant: "error" }));
       })
@@ -64,38 +69,6 @@ export const RegisterPage: React.FC = () => {
 
     setSubmitting(false);
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleProviderRegister =
-    ({ authProvider }: ProviderArguments) =>
-    () => {
-      const provider = providers[authProvider];
-
-      signInWithPopup(auth, provider)
-        .then(({ user }) => {
-          user
-            .getIdToken()
-            .then((idToken) => {
-              const userData = mapUserData(user);
-              dispatch(setToken(idToken));
-              dispatch(setUser(userData));
-
-              localStorage.setItem(STORAGE_FIELDS.token, idToken);
-              localStorage.setItem(STORAGE_FIELDS.refresh_token, user.refreshToken);
-
-              navigate(LANDING_PAGE.path);
-            })
-            .catch(() => {
-              enqueueSnackbar("Wystąpił błąd podczas rejestracji. 1", { variant: "error" });
-            });
-        })
-        .catch((error: AuthError) => {
-          const errorName = error.code as FirebaseErrorType;
-          const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas rejestracji. 2";
-
-          enqueueSnackbar(message, { variant: "error" });
-        });
-    };
 
   return (
     <FormStructure>
@@ -125,17 +98,6 @@ export const RegisterPage: React.FC = () => {
                 </p>
 
                 <div className={styles.buttonRow}>
-                  {/* <Button */}
-                  {/*  disabled={isSubmitting} */}
-                  {/*  type="submit" */}
-                  {/*  variant="outlined" */}
-                  {/*  className={styles.submitButton} */}
-                  {/*  size="large" */}
-                  {/*  onClick={handleProviderRegister({ authProvider: "google" })} */}
-                  {/* > */}
-                  {/*  <GoogleLogo /> */}
-                  {/* </Button> */}
-
                   <Button
                     disabled={isSubmitting}
                     type="submit"
