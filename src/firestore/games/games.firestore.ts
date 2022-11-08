@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { doc, getDoc, getDocs, query, setDoc, where, orderBy } from "firebase/firestore";
 
 import { GameModel } from "models";
 import { getCollectionRef, firestoreCollections } from "config/firebase.config";
@@ -6,7 +6,7 @@ import { getCurrentRound } from "utils/game-round.utils";
 
 export const getAllGames = () => {
   const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
-  const gamesQuery = query(gamesRef);
+  const gamesQuery = query(gamesRef, orderBy("date"));
 
   return getDocs(gamesQuery);
 };

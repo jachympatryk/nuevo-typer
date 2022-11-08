@@ -66,8 +66,9 @@ export const Game: React.FC<GameProps> = ({ game, className }) => {
           <div className={styles.info}>
             <p className={styles.stadium}>{stadium}</p>
             <p className={styles.dateCaption}>{gameDate}</p>
+            <p className={styles.stadium}>{round}</p>
 
-            {disabled && <p className={styles.caption}>Mecz zablokowany</p>}
+            {disabled && <p className={styles.caption}>Edycja zablokowana</p>}
 
             {canEdit && !gameEnded && (
               <p className={styles.caption}>

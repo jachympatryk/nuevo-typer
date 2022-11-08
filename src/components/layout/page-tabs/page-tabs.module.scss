@@ -1,0 +1,44 @@
+@use "src/assets/styles/colors";
+@use "src/assets/styles/breakpoints";
+
+.wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  & > * {
+    max-width: 300px;
+  }
+
+  @media screen and (min-width: breakpoints.$media_xs) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+}
+
+.button {
+  max-width: 180px;
+  background: transparent;
+  border: none;
+  color: colors.$text_dark_gray;
+  border-bottom: 2px solid colors.$border_primary;
+  font-family: Raleway, sans-serif !important;
+  padding: 12px 24px 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: 500;
+  text-align: left;
+
+  &:first-child {
+    text-align: left;
+  }
+}
+
+.activeButton {
+  @extend .button;
+
+  color: colors.$text_dark_primary;
+  border-bottom: 2px solid colors.$blue;
+}

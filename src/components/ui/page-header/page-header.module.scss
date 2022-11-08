@@ -1,0 +1,15 @@
+@use "src/assets/styles/colors";
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: colors.$text_dark_primary;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: colors.$text_dark_gray;
+  margin: 12px 0;
+  font-weight: 400;
+}
