@@ -38,7 +38,7 @@ export const RegisterPage: React.FC = () => {
 
             const displayName = `${values.nickname} (${values.name} ${values.surname})`;
 
-            const data: UserModel = { ...userData, displayName };
+            const data: UserModel = { ...userData, points: 0, displayName };
 
             createUser(data)
               .then(() => {
