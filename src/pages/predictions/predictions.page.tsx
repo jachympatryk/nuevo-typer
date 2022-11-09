@@ -1,11 +1,9 @@
 import React from "react";
 
-import { Content } from "components";
-
 export const PredictionsPage: React.FC = () => {
   return (
-    <Content>
+    <div>
       <p>Predictions</p>
-    </Content>
+    </div>
   );
 };
