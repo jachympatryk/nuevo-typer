@@ -20,9 +20,8 @@ import styles from "./game.module.scss";
 
 // TODO: disabled state
 
-export const Game: React.FC<GameProps> = ({ game, className, noEditable = false }) => {
-  const id = useSelector((state: RootState) => state.auth.user?.id);
-  const user = useSelector((state: RootState) => state.auth.user);
+export const Game: React.FC<GameProps> = ({ game, className, noEditable = false, onSuccess }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const { enqueueSnackbar } = useSnackbar();
   const { date, result, stadium, hostTeam, guestTeam, round, id: gameId, hostId, guestId } = game;
@@ -48,15 +47,20 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false 
   const HostIcon = flags[hostId];
   const GuestIcon = flags[guestId];
 
-  const submitData = (data: GameData) => {
-    if (id && user) {
+  const submitData = async (data: GameData) => {
+    if (user) {
       const details = mapData({ data, round, date, guestId, guestTeam, hostTeam, hostId });
 
-      createPrediction({ user, gameId, details, guestId, hostId })
-        .then(() => {
-          enqueueSnackbar("Mecz obstawiony poprawnie", { variant: "success" });
-        })
-        .catch(() => {});
+      try {
+        await createPrediction({ user, gameId, details });
+
+        onSuccess?.();
+        enqueueSnackbar("Twój typ został zapisany. Mecz oraz edycja będzie możliwa w zakładce 'Twoje typy'.", {
+          variant: "success",
+        });
+      } catch (error) {
+        enqueueSnackbar("Błąd podczas obstawiania meczu.", { variant: "error" });
+      }
     }
   };
 

@@ -2,8 +2,8 @@ import { GameResult, Round, UserModel } from "models";
 
 export type CreatePredictionData = {
   hostTeam: string;
-  hostId: number;
-  guestId: number;
+  hostId: string;
+  guestId: string;
   guestTeam: string;
   predictedResult: GameResult;
   gameDate: Date | string;
@@ -15,7 +15,5 @@ export type CreatePredictionData = {
 export type CreatePredictionArguments = {
   user: UserModel;
   gameId: string;
-  guestId: string;
-  hostId: string;
   details: CreatePredictionData;
 };

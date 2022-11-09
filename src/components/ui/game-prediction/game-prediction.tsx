@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import classNames from "classnames";
 import { FormInput, IconButton } from "react-modern-components";
+import { useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
 
-import { canEditPrediction } from "utils/game.utils";
+import { canEditGame } from "utils/game.utils";
 import { GamePredictionProps } from "./game-prediction.types";
 import { getCurrentRound } from "utils/game-round.utils";
 import { GameData } from "../game/game.types";
+import { createPrediction } from "firestore";
+import { RootState } from "store";
+import { mapData } from "components/ui/game/game.constants";
 import { flags } from "constants/flags.constants";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
@@ -14,9 +19,11 @@ import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
 
 import styles from "./game-prediction.module.scss";
 
-export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className }) => {
+export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className, onEditSuccess }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
   const { gameDate, hostTeam, guestTeam, predictedResult, round, resultGuest, resultHost, hostId, guestId } = game;
-  const { canEdit, editToDate } = canEditPrediction(game);
+  const { canEdit, editToDate } = canEditGame(game);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -38,13 +45,30 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className 
     callback();
   };
 
+  const submitData = async (data: GameData) => {
+    if (user) {
+      const details = mapData({ data, round, date: gameDate, guestId, guestTeam, hostTeam, hostId });
+
+      try {
+        await createPrediction({ user, gameId: game.gameId, details });
+
+        onEditSuccess?.();
+        enqueueSnackbar("Twój typ został zapisany.", {
+          variant: "success",
+        });
+      } catch (error) {
+        enqueueSnackbar("Błąd podczas edycji wyniku.", { variant: "error" });
+      }
+    }
+  };
+
   const values: GameData = {
     guestTeam: predictedResult.guest || 0,
     hostTeam: predictedResult.host || 0,
   };
 
   return (
-    <Formik initialValues={values} onSubmit={() => {}}>
+    <Formik initialValues={values} onSubmit={submitData}>
       {({ handleSubmit, resetForm }) => (
         <Form className={classNames(styles.container, className)}>
           <div className={styles.team}>
@@ -52,6 +76,7 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className 
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
             <HostIcon className={styles.flag} />
+            {!isEditing && <h4>{game.predictedResult.host}</h4>}
             {isEditing && (
               <FormInput
                 label=""
@@ -109,6 +134,7 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className 
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
             <GuestIcon className={styles.flag} />
+            {!isEditing && <h4>{game.predictedResult.guest}</h4>}
             {isEditing && (
               <FormInput
                 className={styles.guestTextField}

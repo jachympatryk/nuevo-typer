@@ -6,7 +6,7 @@ import { UseFetchOptions } from "./use-firebase-fetch.types";
 
 export const useFirebaseFetch = <T>(
   fetcher: () => Promise<DocumentSnapshot<T> | QuerySnapshot<T> | null>,
-  options?: UseFetchOptions,
+  options?: UseFetchOptions<T>,
 ) => {
   const [fetched, setFetched] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,9 +27,11 @@ export const useFirebaseFetch = <T>(
               return { id: doc.id, ...doc?.data?.() };
             }) as unknown as T) || null;
 
+          options?.onSuccess?.(response);
           setData(response);
         } else {
           const response = document?.data?.() || null;
+          options?.onSuccess?.(response);
           setData(response);
         }
         setSnapshot(document);

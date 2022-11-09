@@ -4,6 +4,7 @@ export type GameProps = {
   game: GameModel;
   className?: string;
   noEditable?: boolean;
+  onSuccess?: () => void;
 };
 
 export type GameData = {

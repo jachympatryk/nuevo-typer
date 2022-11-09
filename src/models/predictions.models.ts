@@ -10,7 +10,7 @@ export type PredictionModel = {
   round: Round;
   resultGuest: null | number;
   resultHost: null | number;
-  hostId: number;
+  hostId: string;
   userName: string;
-  guestId: number;
+  guestId: string;
 };
