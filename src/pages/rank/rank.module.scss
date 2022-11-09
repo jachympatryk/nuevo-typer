@@ -1,0 +1,27 @@
+@use "src/assets/styles/colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 64px;
+}
+
+.position {
+  display: grid;
+  grid-template-columns: 40px auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.place {
+  font-weight: 500;
+  color: colors.$text_dark_gray;
+}
+
+.name {
+  font-weight: 700;
+}

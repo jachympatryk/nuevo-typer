@@ -18,7 +18,11 @@ export const PageRoute: React.FC<RouteConfig> = ({ component, showNavigation, au
   return (
     <>
       {!isAuthenticated && !isAuthRoute && <HeroPage />}
-      {showContent && <Page showNavigation={showNavigation}>{component}</Page>}
+      {showContent && (
+        <Page showNavigation={showNavigation} guarded={auth}>
+          {component}
+        </Page>
+      )}
     </>
   );
 };

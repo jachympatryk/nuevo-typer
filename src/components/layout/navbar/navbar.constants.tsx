@@ -1,4 +1,4 @@
-import { GAMES_PAGE, PREDICTIONS_PAGE, RANKING_PAGE } from "constants/routes.constants";
+import { GAMES_PAGE, PREDICTIONS_PAGE, RANK_PAGE } from "constants/routes.constants";
 
 export const linksData = [
   {
@@ -10,7 +10,7 @@ export const linksData = [
     label: "Twoje typy",
   },
   {
-    path: RANKING_PAGE.path,
+    path: RANK_PAGE.path,
     label: "Ranking",
   },
 ];
