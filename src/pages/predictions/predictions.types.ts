@@ -1,1 +1,1 @@
-export type View = "all" | "your-predictions" | "your-predictions-current-round";
+export type View = "all" | "your-predictions";

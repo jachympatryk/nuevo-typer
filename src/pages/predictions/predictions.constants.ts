@@ -10,8 +10,4 @@ export const predictionsTabs: Tab<View>[] = [
     view: "your-predictions",
     label: "Wszystkie twoje typy",
   },
-  {
-    view: "your-predictions-current-round",
-    label: "Wszystkie twoje typy w aktualnej rundzie",
-  },
 ];

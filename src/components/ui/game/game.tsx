@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { Form, Formik } from "formik";
 import { IconButton, FormInput } from "react-modern-components";
+import { useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
 
-import { GameProps } from "./game.types";
+import { GameData, GameProps } from "./game.types";
 import { canEditGame } from "utils/game.utils";
 import { getCurrentRound } from "utils/game-round.utils";
-import { initialValues } from "./game.constants";
+import { initialValues, mapData } from "./game.constants";
 import { flags } from "constants/flags.constants";
+import { createPrediction } from "firestore";
+import { RootState } from "store";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
 import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
@@ -17,7 +21,11 @@ import styles from "./game.module.scss";
 // TODO: disabled state
 
 export const Game: React.FC<GameProps> = ({ game, className, noEditable = false }) => {
-  const { date, result, stadium, hostTeam, guestTeam, round } = game;
+  const id = useSelector((state: RootState) => state.auth.user?.id);
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const { enqueueSnackbar } = useSnackbar();
+  const { date, result, stadium, hostTeam, guestTeam, round, id: gameId, hostId, guestId } = game;
   const { canEdit, editToDate } = canEditGame(game);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -37,11 +45,23 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false 
   const currentRound = getCurrentRound(new Date());
   const disabled = currentRound !== round;
 
-  const HostIcon = flags[game.hostId];
-  const GuestIcon = flags[game.guestId];
+  const HostIcon = flags[hostId];
+  const GuestIcon = flags[guestId];
+
+  const submitData = (data: GameData) => {
+    if (id && user) {
+      const details = mapData({ data, round, date, guestId, guestTeam, hostTeam, hostId });
+
+      createPrediction({ user, gameId, details, guestId, hostId })
+        .then(() => {
+          enqueueSnackbar("Mecz obstawiony poprawnie", { variant: "success" });
+        })
+        .catch(() => {});
+    }
+  };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+    <Formik initialValues={initialValues} onSubmit={submitData}>
       {({ handleSubmit, resetForm }) => (
         <Form className={classNames(styles.container, className)}>
           <div className={styles.team}>

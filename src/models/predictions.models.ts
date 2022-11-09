@@ -8,8 +8,9 @@ export type PredictionModel = {
   predictedResult: GameResult;
   userId: string;
   round: Round;
-  resultGuest: number;
-  resultHost: number;
+  resultGuest: null | number;
+  resultHost: null | number;
   hostId: number;
+  userName: string;
   guestId: number;
 };

@@ -23,21 +23,20 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className 
   const date = new Date(gameDate).toLocaleString();
 
   const gameEnded = resultGuest && resultGuest;
-
   const currentRound = getCurrentRound(new Date());
   const disabled = currentRound !== round;
 
   const showEditButton = canEdit && !isEditing && !gameEnded;
   const showEditContent = canEdit && isEditing && !gameEnded;
 
+  const HostIcon = flags[hostId];
+  const GuestIcon = flags[guestId];
+
   const handleEditing = (value: boolean) => () => setIsEditing(value);
   const handleEditCancel = (callback: () => void) => () => {
     setIsEditing(false);
     callback();
   };
-
-  const HostIcon = flags[hostId];
-  const GuestIcon = flags[guestId];
 
   const values: GameData = {
     guestTeam: predictedResult.guest || 0,
