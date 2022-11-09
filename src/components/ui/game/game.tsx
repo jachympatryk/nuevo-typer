@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 
 import { GameProps } from "./game.types";
-import { canEditGame } from "utils/game.utils";
+import { canEditGame } from "utils";
 import { getCurrentRound } from "utils/game-round.utils";
 import { initialValues } from "./game.constants";
 import { flags } from "constants/flags.constants";

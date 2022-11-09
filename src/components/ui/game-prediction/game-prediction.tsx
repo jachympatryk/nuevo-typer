@@ -5,7 +5,7 @@ import { FormInput, IconButton } from "react-modern-components";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 
-import { canEditGame } from "utils/game.utils";
+import { calculatePoints, canEditGame } from "utils";
 import { GamePredictionProps } from "./game-prediction.types";
 import { getCurrentRound } from "utils/game-round.utils";
 import { createPrediction, getSingleGame } from "firestore";
@@ -81,7 +81,11 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
             <HostIcon className={styles.flag} />
-            {!isEditing && <h4>{prediction.predictedResult.host}</h4>}
+            {!isEditing && (
+              <h4 className={styles.predictedResult}>
+                <span className={styles.resultCaption}>Twój typ:</span> {prediction.predictedResult.host}
+              </h4>
+            )}
             {isEditing && (
               <FormInput
                 label=""
@@ -93,12 +97,8 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
                 helperText={`Gospodarz: ${game.hostTeam}`}
               />
             )}
-            {gameEnded && game.result && (
-              <div>
-                <h6 className={styles.result}>{game.result.host}</h6>
-                <h6 className={styles.predictedResult}>{prediction.predictedResult.host}</h6>
-              </div>
-            )}
+
+            <div>{gameEnded && game.result && <h3 className={styles.result}>{game.result.host}</h3>}</div>
           </div>
 
           <div className={styles.info}>
@@ -132,6 +132,12 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
                 </IconButton>
               </div>
             )}
+
+            {gameEnded && game.result && (
+              <p className={styles.caption}>
+                Ilość punktów za to spotkanie: {calculatePoints(prediction.predictedResult, game.result)}
+              </p>
+            )}
           </div>
 
           <div className={styles.team}>
@@ -139,7 +145,12 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
             <GuestIcon className={styles.flag} />
-            {!isEditing && <h4>{prediction.predictedResult.guest}</h4>}
+            {!isEditing && (
+              <h4 className={styles.predictedResult}>
+                <span className={styles.resultCaption}>Twój typ: </span>
+                {prediction.predictedResult.guest}
+              </h4>
+            )}
             {isEditing && (
               <FormInput
                 className={styles.guestTextField}
@@ -151,12 +162,8 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
                 helperText={`Gość: ${game.guestTeam}`}
               />
             )}
-            {gameEnded && game.result && (
-              <div>
-                <h6 className={styles.result}>{game.result.guest}</h6>
-                <h6 className={styles.predictedResult}>{prediction.predictedResult.guest}</h6>
-              </div>
-            )}
+
+            <div>{gameEnded && game.result && <h3 className={styles.result}>{game.result.guest}</h3>}</div>
           </div>
         </Form>
       )}
