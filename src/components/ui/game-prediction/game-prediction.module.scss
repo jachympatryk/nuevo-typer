@@ -1,0 +1,106 @@
+@use "src/assets/styles/colors";
+@use "src/assets/styles/breakpoints";
+
+.container {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid colors.$border_primary;
+  padding: 24px;
+  align-items: center;
+
+  @media screen and (min-width: breakpoints.$media_m) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center !important;
+  margin-top: 20px;
+}
+
+.flag {
+  height: 60px;
+}
+
+.textField {
+  width: 50px;
+  text-align: center;
+}
+
+.guestTextField {
+  @extend .textField;
+  align-self: flex-end;
+}
+
+.editingButton {
+  display: flex;
+  gap: 10px;
+}
+
+.cancelButton {
+  background-color: colors.$gray_accent;
+}
+
+.submitButton {
+  background-color: colors.$green_accent;
+}
+
+.teamName {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.result {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+  color: #629f5d !important;
+}
+
+.predictedResult {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+.caption {
+  color: colors.$gray;
+  margin: 0;
+  font-size: 12px;
+}
+
+.dateCaption {
+  color: colors.$gray;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stadium {
+  color: colors.$text_dark_gray;
+  margin: 0;
+  font-size: 12px;
+}
+
+.date {
+  font-weight: 600;
+}

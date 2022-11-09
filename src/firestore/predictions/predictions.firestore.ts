@@ -21,7 +21,7 @@ export const getUserPredictionFromCurrentRound = (userId: string) => {
 
   // get predictions of all users from current round - Group stage 1st / Group stage 2nd ...
   const predictionsRef = getCollectionRef<PredictionModel[]>(firestoreCollections.predictions);
-  const predictionQuery = query(predictionsRef, where("round", "==", currentRound), where("user", "==", userId));
+  const predictionQuery = query(predictionsRef, where("round", "==", currentRound), where("userId", "==", userId));
 
   return getDocs(predictionQuery);
 };

@@ -13,7 +13,7 @@ export const AllGamesList: React.FC = () => {
   return (
     <div className={styles.container}>
       {loading && <Loader />}
-      <div className={styles.content}>{!loading && data?.map((game) => <Game game={game} />)}</div>
+      <div className={styles.content}>{!loading && data?.map((game) => <Game game={game} noEditable />)}</div>
     </div>
   );
 };

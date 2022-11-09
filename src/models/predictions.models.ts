@@ -1,12 +1,15 @@
-import { GameResult } from "models/game.models";
+import { GameResult, Round } from "models/game.models";
 
 export type PredictionModel = {
-  userId: string;
-  userName: string;
-  gameId: string;
-  hostTeam: string;
-  guestTeam: string;
-  predictedResult: GameResult;
   gameDate: Date | string;
-  points?: number | null;
+  gameId: string;
+  guestTeam: string;
+  hostTeam: string;
+  predictedResult: GameResult;
+  userId: string;
+  round: Round;
+  resultGuest: number;
+  resultHost: number;
+  hostId: number;
+  guestId: number;
 };

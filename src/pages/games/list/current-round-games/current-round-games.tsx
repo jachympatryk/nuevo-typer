@@ -13,7 +13,7 @@ export const CurrentRoundGames: React.FC = () => {
   return (
     <div className={styles.container}>
       {loading && <Loader />}
-      {!loading && data?.map((game) => <Game game={game} />)}
+      {!loading && data?.map((game) => <Game game={game} noEditable />)}
     </div>
   );
 };
