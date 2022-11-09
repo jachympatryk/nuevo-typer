@@ -1,11 +1,21 @@
 import React from "react";
 
-// todo: loader
+import styles from "./loader.module.scss";
 
-export const Loader: React.FC = () => {
+interface Props {
+  height?: React.CSSProperties["height"];
+}
+
+export const Loader: React.FC<Props> = ({ height }) => {
   return (
-    <div>
-      <p>Loading...</p>
+    <div className={styles.container} style={{ height }}>
+      <div className={styles.scalingDots}>
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+      </div>
     </div>
   );
 };

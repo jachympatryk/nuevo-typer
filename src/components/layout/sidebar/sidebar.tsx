@@ -6,7 +6,7 @@ import { menuItems } from "./sidebar.constants";
 import { RootState } from "store";
 
 import { ReactComponent as Nuevo } from "assets/icons/nuevo.svg";
-import background from "assets/images/background.webp";
+import background from "assets/images/background.png";
 
 import styles from "./sidebar.module.scss";
 
@@ -18,7 +18,6 @@ export const Sidebar: React.FC = () => {
       className={menuOpen ? styles.containerOpen : styles.container}
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className={styles.overlay} />
       <div className={styles.content}>
         <div className={styles.navigation}>
           {menuItems.map(({ path, label }) => (
