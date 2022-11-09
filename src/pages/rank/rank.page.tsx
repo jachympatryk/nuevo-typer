@@ -15,8 +15,7 @@ export const RankPage = () => {
   const { data: usersData, loading: usersLoading, error: usersError } = useFirebaseFetch(getAllUsers);
 
   const users: RankUser[] = useMemo(() => {
-    if (usersData)
-      return usersData.map((user) => ({ id: user.id, displayName: user.displayName, points: user.points }));
+    if (usersData) return usersData.map((user) => ({ id: user.id, displayName: user.displayName, points: 0 }));
 
     return [];
   }, [usersData]);

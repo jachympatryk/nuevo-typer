@@ -22,7 +22,7 @@ export const getCurrentRoundGames = () => {
 };
 
 export const getSingleGame = (gameId: string) => {
-  const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
+  const gamesRef = getCollectionRef<GameModel>(firestoreCollections.games);
   const gameDocument = doc(gamesRef, gameId);
 
   return getDoc(gameDocument);

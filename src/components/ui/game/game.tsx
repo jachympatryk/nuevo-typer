@@ -5,13 +5,15 @@ import { IconButton, FormInput } from "react-modern-components";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 
-import { GameData, GameProps } from "./game.types";
+import { GameProps } from "./game.types";
 import { canEditGame } from "utils/game.utils";
 import { getCurrentRound } from "utils/game-round.utils";
-import { initialValues, mapData } from "./game.constants";
+import { initialValues } from "./game.constants";
 import { flags } from "constants/flags.constants";
 import { createPrediction } from "firestore";
 import { RootState } from "store";
+import { CreatePredictionData } from "firestore/predictions/predictions.types";
+import { GameResult } from "models";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
 import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
@@ -24,7 +26,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
   const { user } = useSelector((state: RootState) => state.auth);
 
   const { enqueueSnackbar } = useSnackbar();
-  const { date, result, stadium, hostTeam, guestTeam, round, id: gameId, hostId, guestId } = game;
+  const { date, result, stadium, hostTeam, guestTeam, round, hostId, guestId } = game;
   const { canEdit, editToDate } = canEditGame(game);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -47,12 +49,12 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
   const HostIcon = flags[hostId];
   const GuestIcon = flags[guestId];
 
-  const submitData = async (data: GameData) => {
+  const submitData = async (data: GameResult) => {
     if (user) {
-      const details = mapData({ data, round, date, guestId, guestTeam, hostTeam, hostId });
+      const details: CreatePredictionData = { user, gameId: game.id, predictedResult: data };
 
       try {
-        await createPrediction({ user, gameId, details });
+        await createPrediction(details);
 
         onSuccess?.();
         enqueueSnackbar("Twój typ został zapisany. Mecz oraz edycja będzie możliwa w zakładce 'Twoje typy'.", {
@@ -77,7 +79,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
               <FormInput
                 label=""
                 className={styles.textField}
-                name="hostTeam"
+                name="host"
                 type="number"
                 min={0}
                 max={10}
@@ -94,7 +96,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
 
             {disabled && <p className={styles.caption}>Edycja zablokowana</p>}
 
-            {!noEditable && canEdit && !gameEnded && (
+            {!noEditable && canEdit && !gameEnded && editToDate && (
               <p className={styles.caption}>
                 edycja możliwa do <br />
                 <span className={styles.date}>{editToDate.toLocaleString()}</span>
@@ -130,7 +132,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
               <FormInput
                 className={styles.guestTextField}
                 label=""
-                name="guestTeam"
+                name="guest"
                 type="number"
                 min={0}
                 max={10}

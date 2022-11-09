@@ -20,8 +20,8 @@ export const AllUserPredictions: React.FC<Props> = ({ predictions, loading, refr
       {showNoContent && <NoContent />}
       {showContent && (
         <div className={styles.content}>
-          {predictions.map((game) => (
-            <GamePrediction key={game.gameId} game={game} onEditSuccess={refreshPredictions} />
+          {predictions.map((prediction) => (
+            <GamePrediction key={prediction.gameId} prediction={prediction} onEditSuccess={refreshPredictions} />
           ))}
         </div>
       )}

@@ -5,5 +5,4 @@ export type UserModel = {
   photoUrl: string | null;
   name?: string;
   surname?: string;
-  points: number;
 };
