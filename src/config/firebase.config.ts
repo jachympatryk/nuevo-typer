@@ -19,6 +19,7 @@ const firestoreCollections = {
   predictions: "predictions",
   teams: "teams",
   users: "users",
+  points: "points",
 };
 
 // Initialize Firebase

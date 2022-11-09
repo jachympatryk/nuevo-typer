@@ -1,13 +1,17 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
+import { useDidUpdate } from "@better-typed/react-lifecycle-hooks";
 
 import { Loader, PageHeader } from "components";
 import { useFirebaseFetch } from "hooks";
 import { getAllUsers } from "firestore";
 import { RankUser } from "./rank.types";
+import { getPoints } from "./rank.constants";
 
 import styles from "./rank.module.scss";
 
 export const RankPage = () => {
+  const [rankUsers, setRankUsers] = useState<RankUser[]>([]);
+
   const { data: usersData, loading: usersLoading, error: usersError } = useFirebaseFetch(getAllUsers);
 
   const users: RankUser[] = useMemo(() => {
@@ -17,11 +21,19 @@ export const RankPage = () => {
     return [];
   }, [usersData]);
 
-  const rank = useMemo(() => {
-    return users.sort((first, second) => {
-      return second.points - first.points;
+  useDidUpdate(() => {
+    users.forEach(async (user) => {
+      const rankUser = await getPoints(user);
+
+      setRankUsers((prevUsers) => [...prevUsers, rankUser]);
     });
   }, [users]);
+
+  const rank = useMemo(() => {
+    return rankUsers.sort((first, second) => {
+      return second.points - first.points;
+    });
+  }, [rankUsers]);
 
   // todo: error handler
 
