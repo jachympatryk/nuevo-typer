@@ -59,12 +59,16 @@
 }
 
 .link {
-  background-color: rgb(0, 0, 0, 0.6);
-  width: 200px;
-  height: 40px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ccc !important;
+  color: colors.$text_light_primary !important;
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: 600;
+
+  &:hover {
+    color: colors.$text_light_secondary;
+  }
 }
