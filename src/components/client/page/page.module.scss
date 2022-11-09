@@ -8,9 +8,13 @@
 
 .navigationContainer {
   @extend .container;
+  display: grid;
+  grid-template-rows: 80px 1fr;
 
-  @media screen and (min-width: breakpoints.$media_l) {
+
+  @media screen and (min-width: breakpoints.$media_m) {
     display: grid;
+    grid-template-rows: unset;
     grid-template-columns: 300px 1fr;
   }
 

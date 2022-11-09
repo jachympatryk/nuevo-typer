@@ -1,9 +1,9 @@
 import { GAMES_PAGE, PREDICTIONS_PAGE, RANK_PAGE } from "constants/routes.constants";
 
-export const linksData = [
+export const menuItems = [
   {
     path: GAMES_PAGE.path,
-    label: "Wszystkie mecze",
+    label: "Terminarz",
   },
   {
     path: PREDICTIONS_PAGE.path,
