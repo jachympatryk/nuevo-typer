@@ -26,4 +26,5 @@ export const mapUserData = (user: User): UserModel => ({
   photoUrl: user.photoURL,
   displayName: user?.displayName || user.uid,
   email: user.email,
+  points: 0,
 });

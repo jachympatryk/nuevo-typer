@@ -10,7 +10,7 @@ export const HERO_PAGE: RouteConstant = {
 export const LANDING_PAGE: RouteConstant = {
   path: "/home",
   name: "Strona główna",
-  auth: false,
+  auth: true,
   showNavigation: true,
 };
 
@@ -49,8 +49,8 @@ export const GAME_DETAILS_PAGE: RouteConstant = {
   showNavigation: true,
 };
 
-export const RANKING_PAGE: RouteConstant = {
-  path: "/ranking",
+export const RANK_PAGE: RouteConstant = {
+  path: "/rank",
   name: "Ranking",
   auth: true,
   showNavigation: true,
