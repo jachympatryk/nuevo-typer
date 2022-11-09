@@ -69,12 +69,6 @@
   margin: 0;
 }
 
-.result {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 12px 0 6px;
-}
-
 .caption {
   color: colors.$gray;
   margin: 0;
@@ -96,4 +90,11 @@
 
 .date {
   font-weight: 600;
+}
+
+.result {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+  color: colors.$green;
 }

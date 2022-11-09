@@ -1,5 +1,5 @@
 import { getCurrentRound } from "utils/game-round.utils";
-import { GameModel, PredictionModel } from "models";
+import { GameModel, GameResult } from "models";
 
 export const subtractHours = (date: Date, hoursToSubtract: number) => {
   date.setHours(date.getHours() - hoursToSubtract);
@@ -7,10 +7,11 @@ export const subtractHours = (date: Date, hoursToSubtract: number) => {
   return date;
 };
 
-export const canEditGame = (game: GameModel | PredictionModel): { canEdit: boolean; editToDate: Date } => {
+export const canEditGame = (game: GameModel | null): { canEdit: boolean; editToDate?: Date } => {
   // check if user can edit the game - 1 hour before start
+  if (!game) return { canEdit: false };
 
-  const matchDate = "date" in game ? new Date(game.date) : new Date(game.gameDate);
+  const matchDate = new Date(game.date);
   const editToDate = subtractHours(matchDate, 1);
 
   const currentRound = getCurrentRound(new Date());
@@ -22,17 +23,23 @@ export const canEditGame = (game: GameModel | PredictionModel): { canEdit: boole
   return { canEdit, editToDate };
 };
 
-export const canEditPrediction = (game: PredictionModel): { canEdit: boolean; editToDate: Date } => {
-  // check if user can edit the game - 1 hour before start
+export const calculatePoints = (predicted: GameResult, result: GameResult): number => {
+  if (predicted.host === result.host && predicted.guest === result.guest) return 3;
 
-  const matchDate = new Date(game.gameDate);
-  const editToDate = subtractHours(matchDate, 1);
+  if (result.host > result.guest) {
+    if (predicted.host > predicted.guest) return 1;
+    return 0;
+  }
 
-  const currentRound = getCurrentRound(new Date());
+  if (result.host === result.guest) {
+    if (predicted.host === predicted.guest) return 1;
+    return 0;
+  }
 
-  const isCurrentRound = currentRound === game.round;
+  if (result.host < result.guest) {
+    if (predicted.host < predicted.guest) return 1;
+    return 0;
+  }
 
-  const canEdit = new Date().getTime() < editToDate.getTime() && isCurrentRound;
-
-  return { canEdit, editToDate };
+  return 0;
 };

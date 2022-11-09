@@ -73,13 +73,20 @@
   font-size: 24px;
   font-weight: 600;
   margin: 12px 0 6px;
-  color: #629f5d !important;
+  color: colors.$green;
 }
 
 .predictedResult {
   font-size: 20px;
   font-weight: 600;
   margin: 12px 0 6px;
+}
+
+.resultCaption {
+  font-size: 12px;
+  color: colors.$text_dark_gray;
+  font-weight: 400;
+  margin-right: 6px;
 }
 
 .caption {

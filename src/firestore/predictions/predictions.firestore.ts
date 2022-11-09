@@ -2,7 +2,7 @@ import { doc, getDocs, setDoc, query, where } from "firebase/firestore";
 
 import { PredictionModel } from "models";
 import { getCollectionRef, firestoreCollections } from "config/firebase.config";
-import { CreatePredictionArguments } from "firestore/predictions/predictions.types";
+import { CreatePredictionData } from "firestore/predictions/predictions.types";
 import { getCurrentRound } from "utils/game-round.utils";
 
 export const getDocumentId = (userId: string, gameId: string) => {
@@ -50,14 +50,14 @@ export const getUserPredictions = (userId: string) => {
   return getDocs(predictionQuery);
 };
 
-export const createPrediction = ({ user, gameId, details }: CreatePredictionArguments) => {
+export const createPrediction = ({ user, gameId, predictedResult }: CreatePredictionData) => {
   const { id, displayName } = user;
 
   const predictionsRef = getCollectionRef<PredictionModel>(firestoreCollections.predictions);
   const documentId = getDocumentId(id, gameId);
 
   const predictionDocument = doc(predictionsRef, documentId);
-  const values: PredictionModel = { userId: id, userName: displayName, gameId, ...details };
+  const values: PredictionModel = { userId: id, userName: displayName, gameId, predictedResult };
 
   return setDoc(predictionDocument, values);
 };
