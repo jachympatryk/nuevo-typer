@@ -1,34 +1,36 @@
 import React, { useState } from "react";
-import classNames from "classnames";
 import { Form, Formik } from "formik";
-import { IconButton, FormInput } from "react-modern-components";
-import { useSelector } from "react-redux";
-import { useSnackbar } from "notistack";
+import classNames from "classnames";
+import { FormInput, IconButton } from "react-modern-components";
 
-import { GameData, GameProps } from "./game.types";
-import { canEditGame } from "utils/game.utils";
+import { canEditPrediction } from "utils/game.utils";
+import { GamePredictionProps } from "./game-prediction.types";
 import { getCurrentRound } from "utils/game-round.utils";
-import { initialValues, mapData } from "./game.constants";
+import { GameData } from "../game/game.types";
 import { flags } from "constants/flags.constants";
-import { createPrediction } from "firestore";
-import { RootState } from "store";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
 import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
 
-import styles from "./game.module.scss";
+import styles from "./game-prediction.module.scss";
 
-// TODO: disabled state
-
-export const Game: React.FC<GameProps> = ({ game, className, noEditable = false }) => {
-  const id = useSelector((state: RootState) => state.auth.user?.id);
-  const user = useSelector((state: RootState) => state.auth.user);
-
-  const { enqueueSnackbar } = useSnackbar();
-  const { date, result, stadium, hostTeam, guestTeam, round, id: gameId, hostId, guestId } = game;
-  const { canEdit, editToDate } = canEditGame(game);
+export const GamePrediction: React.FC<GamePredictionProps> = ({ game, className }) => {
+  const { gameDate, hostTeam, guestTeam, predictedResult, round, resultGuest, resultHost, hostId, guestId } = game;
+  const { canEdit, editToDate } = canEditPrediction(game);
 
   const [isEditing, setIsEditing] = useState(false);
+
+  const date = new Date(gameDate).toLocaleString();
+
+  const gameEnded = resultGuest && resultGuest;
+  const currentRound = getCurrentRound(new Date());
+  const disabled = currentRound !== round;
+
+  const showEditButton = canEdit && !isEditing && !gameEnded;
+  const showEditContent = canEdit && isEditing && !gameEnded;
+
+  const HostIcon = flags[hostId];
+  const GuestIcon = flags[guestId];
 
   const handleEditing = (value: boolean) => () => setIsEditing(value);
   const handleEditCancel = (callback: () => void) => () => {
@@ -36,32 +38,13 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false 
     callback();
   };
 
-  const gameDate = new Date(date).toLocaleString();
-
-  const gameEnded = result !== null;
-  const showEditButton = canEdit && !isEditing && !gameEnded && !noEditable;
-  const showEditContent = canEdit && isEditing && !gameEnded && !noEditable;
-
-  const currentRound = getCurrentRound(new Date());
-  const disabled = currentRound !== round;
-
-  const HostIcon = flags[hostId];
-  const GuestIcon = flags[guestId];
-
-  const submitData = (data: GameData) => {
-    if (id && user) {
-      const details = mapData({ data, round, date, guestId, guestTeam, hostTeam, hostId });
-
-      createPrediction({ user, gameId, details, guestId, hostId })
-        .then(() => {
-          enqueueSnackbar("Mecz obstawiony poprawnie", { variant: "success" });
-        })
-        .catch(() => {});
-    }
+  const values: GameData = {
+    guestTeam: predictedResult.guest || 0,
+    hostTeam: predictedResult.host || 0,
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={submitData}>
+    <Formik initialValues={values} onSubmit={() => {}}>
       {({ handleSubmit, resetForm }) => (
         <Form className={classNames(styles.container, className)}>
           <div className={styles.team}>
@@ -80,17 +63,21 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false 
                 helperText={`Gospodarz: ${hostTeam}`}
               />
             )}
-            {gameEnded && <h6 className={styles.result}>{result?.host}</h6>}
+            {gameEnded && (
+              <div>
+                <h6 className={styles.result}>{resultHost}</h6>
+                <h6 className={styles.predictedResult}>{predictedResult.host}</h6>
+              </div>
+            )}
           </div>
 
           <div className={styles.info}>
-            <p className={styles.stadium}>{stadium}</p>
-            <p className={styles.dateCaption}>{gameDate}</p>
+            <p className={styles.dateCaption}>{date}</p>
             <p className={styles.stadium}>{round}</p>
 
             {disabled && <p className={styles.caption}>Edycja zablokowana</p>}
 
-            {!noEditable && canEdit && !gameEnded && (
+            {canEdit && !gameEnded && (
               <p className={styles.caption}>
                 edycja możliwa do <br />
                 <span className={styles.date}>{editToDate.toLocaleString()}</span>
@@ -133,7 +120,12 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false 
                 helperText={`Gość: ${guestTeam}`}
               />
             )}
-            {gameEnded && <h6 className={styles.result}>{result?.guest}</h6>}
+            {gameEnded && (
+              <div>
+                <h6 className={styles.result}>{resultGuest}</h6>
+                <h6 className={styles.predictedResult}>{predictedResult.guest}</h6>
+              </div>
+            )}
           </div>
         </Form>
       )}
