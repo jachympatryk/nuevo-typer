@@ -24,11 +24,15 @@ export const PredictionsPage: React.FC = () => {
   const gameData = useFirebaseFetch(getCurrentRoundGames);
   const { data: gamesData, loading: gameLoading } = gameData;
 
-  const predictionData = useFirebaseFetch(() => getUserPredictionFromCurrentRound(id as string));
-  const { data: predictionsData, loading: predictionsLoading } = predictionData;
+  const predictionData = useFirebaseFetch(() => getUserPredictionFromCurrentRound((id as string) || "asdad"));
+  const { data: predictionsData, loading: predictionsLoading, refresh: refreshPredictions } = predictionData;
 
-  const allPredictionData = useFirebaseFetch(() => getUserPredictions(id as string));
-  const { data: allPredictionsData, loading: allPredictionsLoading } = allPredictionData;
+  const allPredictionData = useFirebaseFetch(() => getUserPredictions((id as string) || "asdasd"));
+  const {
+    data: allPredictionsData,
+    loading: allPredictionsLoading,
+    refresh: refreshAllPredictions,
+  } = allPredictionData;
 
   const onViewChange = (viewName: View) => setView(viewName);
   const loading = gameLoading && predictionsLoading && allPredictionsLoading;
@@ -57,6 +61,17 @@ export const PredictionsPage: React.FC = () => {
       }
     },
     [gamesData, allPredictionsData, predictionsData],
+    true,
+  );
+
+  useDidUpdate(
+    () => {
+      if (id) {
+        refreshPredictions();
+        refreshAllPredictions();
+      }
+    },
+    [id],
     true,
   );
 
