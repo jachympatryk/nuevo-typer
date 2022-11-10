@@ -1,12 +1,19 @@
 import { doc, getDoc, getDocs, query, setDoc, where, orderBy } from "firebase/firestore";
 
-import { GameModel } from "models";
+import { GameModel, Group } from "models";
 import { getCollectionRef, firestoreCollections } from "config/firebase.config";
 import { getCurrentRound } from "utils/game-round.utils";
 
 export const getAllGames = () => {
   const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
   const gamesQuery = query(gamesRef, orderBy("date"));
+
+  return getDocs(gamesQuery);
+};
+
+export const getGamesFromGroup = (group: Group) => {
+  const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
+  const gamesQuery = query(gamesRef, where("group", "==", group));
 
   return getDocs(gamesQuery);
 };
