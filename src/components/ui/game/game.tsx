@@ -94,7 +94,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
             <p className={styles.dateCaption}>{gameDate}</p>
             <p className={styles.stadium}>{round}</p>
 
-            {disabled && <p className={styles.caption}>Edycja zablokowana</p>}
+            {!noEditable && disabled && <p className={styles.caption}>Edycja zablokowana</p>}
 
             {!noEditable && canEdit && !gameEnded && editToDate && (
               <p className={styles.caption}>
