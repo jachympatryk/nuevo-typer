@@ -1,0 +1,14 @@
+@use "src/assets/styles/breakpoints";
+
+.container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  @media screen and (min-width: breakpoints.$media_m) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px;
+  }
+}

@@ -1,1 +1,1 @@
-export type View = "all" | "current-round";
+export type View = "all" | "current-round" | "groups";

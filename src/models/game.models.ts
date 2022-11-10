@@ -13,6 +13,8 @@ export type Round =
   | "Mecz o 3 miejsce"
   | "Finał";
 
+export type Group = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+
 export type GameModel = {
   id: string;
   hostId: string;
@@ -23,4 +25,5 @@ export type GameModel = {
   stadium: string;
   result: GameResult | null;
   round: Round;
+  group?: Group;
 };

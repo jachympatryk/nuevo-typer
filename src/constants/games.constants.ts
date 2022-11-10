@@ -10,6 +10,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Bayt Stadium, Al-Chaur",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "A",
   },
   {
     hostId: "5",
@@ -20,6 +21,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Międzynarodowy Chalifa, Ar-Rajjan",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "B",
   },
   {
     hostId: "3",
@@ -30,6 +32,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Thumama Stadium, Doha",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "A",
   },
   {
     hostId: "7",
@@ -40,6 +43,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Ahmed bin Ali Stadium, Ar-Rajjan",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "B",
   },
 
   {
@@ -51,6 +55,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "C",
   },
   {
     hostId: "15",
@@ -61,6 +66,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Education City Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "D",
   },
   {
     hostId: "11",
@@ -71,6 +77,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadium 974",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "C",
   },
   {
     hostId: "13",
@@ -81,6 +88,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Al-Wakrah",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "D",
   },
 
   {
@@ -92,6 +100,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al-Khor Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "F",
   },
   {
     hostId: "19",
@@ -102,6 +111,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Chalifa",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "E",
   },
   {
     hostId: "17",
@@ -112,6 +122,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Thumama Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "E",
   },
   {
     hostId: "21",
@@ -122,6 +133,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Rayyan Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "F",
   },
   {
     hostId: "27",
@@ -132,6 +144,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Al-Wakrah",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "G",
   },
   {
     hostId: "31",
@@ -142,6 +155,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Education City Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "H",
   },
   {
     hostId: "29",
@@ -152,6 +166,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadium 974",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "H",
   },
   {
     hostId: "25",
@@ -162,6 +177,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 1",
+    group: "G",
   },
 
   // todo: change host Id below
@@ -175,6 +191,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "B",
   },
   {
     hostId: "1",
@@ -185,6 +202,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Thumama Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "A",
   },
   {
     hostId: "4",
@@ -195,6 +213,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Chalifa",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "A",
   },
   {
     hostId: "5",
@@ -205,6 +224,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al-Khor Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "B",
   },
   {
     hostId: "16",
@@ -215,6 +235,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Al-Wakrah",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "D",
   },
   {
     hostId: "12",
@@ -225,6 +246,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Education City Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "C",
   },
   {
     hostId: "13",
@@ -235,6 +257,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadium 974",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "D",
   },
   {
     hostId: "9",
@@ -245,6 +268,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "C",
   },
   {
     hostId: "20",
@@ -255,6 +279,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Rayyan Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "E",
   },
   {
     hostId: "21",
@@ -265,6 +290,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Thumama Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "F",
   },
   {
     hostId: "24",
@@ -275,6 +301,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Chalifa",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "F",
   },
   {
     hostId: "17",
@@ -285,6 +312,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al-Khor Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "E",
   },
   {
     hostId: "28",
@@ -295,6 +323,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Al-Wakrah",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "G",
   },
   {
     hostId: "32",
@@ -305,6 +334,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Education City Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "H",
   },
   {
     hostId: "25",
@@ -315,6 +345,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadium 974",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "G",
   },
   {
     hostId: "29",
@@ -325,6 +356,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 2",
+    group: "H",
   },
   {
     hostId: "2",
@@ -335,6 +367,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Chalifa",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "A",
   },
   {
     hostId: "4",
@@ -345,6 +378,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al-Khor Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "A",
   },
   {
     hostId: "6",
@@ -355,6 +389,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Thumama Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "B",
   },
   {
     hostId: "8",
@@ -365,6 +400,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Rayyan Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "B",
   },
   {
     hostId: "16",
@@ -375,6 +411,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Education City Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "D",
   },
   {
     hostId: "14",
@@ -385,6 +422,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Al-Wakrah",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "D",
   },
   {
     hostId: "12",
@@ -395,6 +433,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadium 974",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "C",
   },
   {
     hostId: "10",
@@ -405,6 +444,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "C",
   },
   {
     hostId: "24",
@@ -415,6 +455,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Rayyan Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "F",
   },
   {
     hostId: "22",
@@ -425,6 +466,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al Thumama Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "F",
   },
   {
     hostId: "20",
@@ -435,6 +477,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Chalifa",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "E",
   },
   {
     hostId: "18",
@@ -445,6 +488,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Al-Khor Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "E",
   },
 
   {
@@ -456,6 +500,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Educatin City Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "H",
   },
   {
     hostId: "30",
@@ -466,6 +511,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadion Al-Wakrah",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "H",
   },
   {
     hostId: "26",
@@ -476,6 +522,7 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Stadium 974",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "G",
   },
   {
     hostId: "28",
@@ -486,5 +533,6 @@ export const games: Omit<GameModel, "id">[] = [
     stadium: "Lusail Stadium",
     result: null,
     round: "Faza grupowa - mecz 3",
+    group: "G",
   },
 ];
