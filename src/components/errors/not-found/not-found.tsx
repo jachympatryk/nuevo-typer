@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { NotFoundProps } from "./not-found.types";
-import { LANDING_PAGE } from "constants/routes.constants";
+import { GAMES_PAGE } from "constants/routes.constants";
 
 import styles from "./not-found.module.scss";
 
@@ -16,7 +16,7 @@ export const NotFound = memo(
       if (btnClick) {
         btnClick();
       } else {
-        navigate(LANDING_PAGE.path);
+        navigate(GAMES_PAGE.path);
       }
     };
 

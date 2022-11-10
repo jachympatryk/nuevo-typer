@@ -12,7 +12,7 @@ import { mapUserData } from "utils";
 import { FirebaseErrorType } from "pages/auth/auth.types";
 import { auth } from "config/firebase.config";
 import { FIREBASE_ERRORS } from "pages/auth/auth.constants";
-import { LANDING_PAGE, REGISTER_PAGE } from "constants/routes.constants";
+import { GAMES_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { loginSchema, initialLoginValues } from "../login.constants";
 
@@ -37,7 +37,7 @@ export const LoginForm: React.FC = () => {
         localStorage.setItem(STORAGE_FIELDS.token, idToken);
         localStorage.setItem(STORAGE_FIELDS.refresh_token, user.refreshToken);
 
-        navigate(LANDING_PAGE.path);
+        navigate(GAMES_PAGE.path);
       })
       .catch(() => enqueueSnackbar("Wystąpił błąd podczas logowania", { variant: "error" }));
   };

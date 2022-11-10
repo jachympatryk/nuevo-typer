@@ -5,6 +5,7 @@
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
+  height: 340px;
 }
 
 .header {
@@ -26,6 +27,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid colors.$border_primary;
+  height: 100%;
 }
 
 .team {
