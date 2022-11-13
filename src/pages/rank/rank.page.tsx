@@ -53,7 +53,7 @@ export const RankPage = () => {
               <p className={styles.place}>{index + 1}</p>
               <div className={styles.content}>
                 <p className={styles.name}>{user.displayName}</p>
-                <p>Punkty: {user.points}</p>
+                <p className={styles.points}>Punkty: {user.points}</p>
               </div>
             </div>
           ))}

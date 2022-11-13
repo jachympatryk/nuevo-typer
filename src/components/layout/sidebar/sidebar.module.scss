@@ -49,13 +49,20 @@
 }
 
 .logout {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
   height: 40px;
   width: auto;
-  position: absolute;
-  bottom: 40px;
-  left: 30%;
   transform: translateX(-50%);
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.8);
+  fill: colors.$white !important;
+  stroke: colors.$white !important;
+
+  svg {
+    fill: colors.$white !important;
+  }
 }
 
 .navigation {

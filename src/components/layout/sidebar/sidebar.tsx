@@ -2,14 +2,15 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
+import { IconButton } from "react-modern-components";
 
 import { menuItems } from "./sidebar.constants";
 import { resetUserStore, RootState, toggleMenu } from "store";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { LOGIN_PAGE } from "constants/routes.constants";
 
-import { ReactComponent as Nuevo } from "assets/icons/nuevo.svg";
 import background from "assets/images/background.png";
+import { ReactComponent as Nuevo } from "assets/icons/nuevo.svg";
 import { ReactComponent as Logout } from "assets/icons/logout.svg";
 
 import styles from "./sidebar.module.scss";
@@ -51,7 +52,10 @@ export const Sidebar: React.FC = () => {
         </div>
         <Nuevo className={styles.nuevo} />
 
-        <Logout className={styles.logout} onClick={logout} />
+        <IconButton variant="none" onClick={logout} className={styles.logout}>
+          <Logout />
+        </IconButton>
+        {/* <Logout className={styles.logout} onClick={logout} /> */}
       </div>
     </aside>
   );
