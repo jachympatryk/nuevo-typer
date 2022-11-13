@@ -46,3 +46,9 @@
     margin: 0;
   }
 }
+
+.nameCurrent {
+  @extend .name;
+
+  color: colors.$green;
+}
