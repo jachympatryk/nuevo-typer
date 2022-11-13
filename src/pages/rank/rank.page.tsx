@@ -1,17 +1,20 @@
 import React, { useMemo, useState } from "react";
 import { useDidUpdate } from "@better-typed/react-lifecycle-hooks";
+import { useSelector } from "react-redux";
 
 import { Loader, PageHeader } from "components";
 import { useFirebaseFetch } from "hooks";
 import { getAllUsers } from "firestore";
 import { RankUser } from "./rank.types";
 import { getPoints } from "./rank.constants";
+import { RootState } from "store";
 
 import styles from "./rank.module.scss";
 
 export const RankPage = () => {
   const [rankUsers, setRankUsers] = useState<RankUser[]>([]);
 
+  const { user: currentUser } = useSelector((state: RootState) => state.auth);
   const { data: usersData, loading: usersLoading, error: usersError } = useFirebaseFetch(getAllUsers);
 
   const users: RankUser[] = useMemo(() => {
@@ -52,8 +55,8 @@ export const RankPage = () => {
             <div key={user.id} className={styles.position}>
               <p className={styles.place}>{index + 1}</p>
               <div className={styles.content}>
-                <p className={styles.name}>{user.displayName}</p>
-                <p>Punkty: {user.points}</p>
+                <p className={currentUser?.id === user.id ? styles.nameCurrent : styles.name}>{user.displayName}</p>
+                <p className={styles.points}>Punkty: {user.points}</p>
               </div>
             </div>
           ))}

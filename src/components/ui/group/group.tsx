@@ -5,6 +5,7 @@ import { Group as GroupModel } from "models";
 import { useFirebaseFetch } from "hooks";
 import { getGamesFromGroup, getTeamsFromGroup } from "firestore";
 import { flags } from "constants/flags.constants";
+import { Loader } from "../loader/loader";
 
 import background from "assets/images/background.png";
 
@@ -20,8 +21,10 @@ type GroupResult = Record<string, Omit<GroupValues, "id">>;
 export const Group: React.FC<Props> = ({ group }) => {
   const [groupResult, setGroupResult] = useState<GroupResult | null>(null);
 
-  const { data: teams } = useFirebaseFetch(() => getTeamsFromGroup(group));
-  const { data: games } = useFirebaseFetch(() => getGamesFromGroup(group));
+  const { data: teams, loading: teamsLoading } = useFirebaseFetch(() => getTeamsFromGroup(group));
+  const { data: games, loading: gamesLoading } = useFirebaseFetch(() => getGamesFromGroup(group));
+
+  const loading = teamsLoading || gamesLoading;
 
   useDidUpdate(() => {
     const groupResults: GroupResult = {};
@@ -78,26 +81,28 @@ export const Group: React.FC<Props> = ({ group }) => {
         <p className={styles.group}>Grupa {group}</p>
       </div>
       <section className={styles.content}>
-        {values.map((team) => {
-          const Flag = flags[team.id];
-          const balance = team.scored - team.conceded;
+        {loading && <Loader height="300px" />}
+        {!loading &&
+          values.map((team) => {
+            const Flag = flags[team.id];
+            const balance = team.scored - team.conceded;
 
-          return (
-            <div key={team.id} className={styles.team}>
-              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-              {/* @ts-ignore */}
-              <Flag />
-              <p className={styles.name}>{team.name}</p>
-              <p className={styles.caption}>{team.scored}</p>
-              <p className={styles.caption}>{team.conceded}</p>
-              <p className={styles.caption}>
-                {balance > 0 ? "+" : ""}
-                {balance}
-              </p>
-              <p className={styles.points}>{team.points}</p>
-            </div>
-          );
-        })}
+            return (
+              <div key={team.id} className={styles.team}>
+                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                {/* @ts-ignore */}
+                <Flag style={{ height: "20px" }} />
+                <p className={styles.name}>{team.name}</p>
+                <p className={styles.caption}>{team.scored}</p>
+                <p className={styles.caption}>{team.conceded}</p>
+                <p className={styles.caption}>
+                  {balance > 0 ? "+" : ""}
+                  {balance}
+                </p>
+                <p className={styles.points}>{team.points}</p>
+              </div>
+            );
+          })}
       </section>
     </div>
   );
