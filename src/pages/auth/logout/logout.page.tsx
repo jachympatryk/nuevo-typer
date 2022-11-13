@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { resetUserStore } from "store";
-import { LOGIN_PAGE, LANDING_PAGE } from "constants/routes.constants";
+import { LOGIN_PAGE, GAMES_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { auth } from "config/firebase.config";
 
@@ -29,7 +29,7 @@ export const LogoutPage: React.FC = () => {
         navigate(LOGIN_PAGE.path);
       })
       .catch(() => {
-        navigate(LANDING_PAGE.path);
+        navigate(GAMES_PAGE.path);
         // sign out error - redirect to the home page
       });
   }, [dispatch, navigate]);

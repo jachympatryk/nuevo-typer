@@ -12,6 +12,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className={styles.content}>
+      <p>Landing</p>
       {data?.map((game) => (
         <Game game={game} />
       ))}

@@ -14,7 +14,7 @@ export const GamesListPage: React.FC = () => {
 
   return (
     <div>
-      <PageHeader title="Lista spotkań" subtitle="W tym miejscu znajdują się spotkania mistrzostw świata." />
+      <PageHeader title="Terminarz" subtitle="W tym miejscu znajdują się spotkania mistrzostw świata." />
       <PageTabs views={gamesTabs} currentView={view} onViewChange={onViewChange} />
       {view === "all" && <AllGamesList />}
       {view === "current-round" && <CurrentRoundGames />}

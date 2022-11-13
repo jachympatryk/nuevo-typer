@@ -16,7 +16,7 @@ import { UserModel } from "models";
 import { auth } from "config/firebase.config";
 import { FIREBASE_ERRORS } from "../auth.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
-import { LOGIN_PAGE } from "constants/routes.constants";
+import { GAMES_PAGE, LOGIN_PAGE } from "constants/routes.constants";
 import { formValidationSchema, registerInitialValues } from "./register.constants";
 
 import styles from "../auth.module.scss";
@@ -53,7 +53,7 @@ export const RegisterPage: React.FC = () => {
                   localStorage.setItem(STORAGE_FIELDS.token, idToken);
                   localStorage.setItem(STORAGE_FIELDS.refresh_token, user.refreshToken);
 
-                  navigate(LOGIN_PAGE.path);
+                  navigate(GAMES_PAGE.path);
                 }
               })
               .catch(() => enqueueSnackbar("Wystąpił błąd podczas rejestracji", { variant: "error" }));

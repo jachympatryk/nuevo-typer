@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { NoContentProps } from "./no-content.types";
-import { LANDING_PAGE } from "constants/routes.constants";
+import { GAMES_PAGE } from "constants/routes.constants";
 
 import styles from "./no-content.module.scss";
 
@@ -27,7 +27,7 @@ export const NoContent = memo(
       if (onClick) {
         onClick();
       } else {
-        navigate(LANDING_PAGE.path);
+        navigate(GAMES_PAGE.path);
       }
     };
 
