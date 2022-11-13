@@ -81,7 +81,7 @@ export const Group: React.FC<Props> = ({ group }) => {
         <p className={styles.group}>Grupa {group}</p>
       </div>
       <section className={styles.content}>
-        {loading && <Loader height="100%" />}
+        {loading && <Loader height="300px" />}
         {!loading &&
           values.map((team) => {
             const Flag = flags[team.id];
