@@ -1,3 +1,5 @@
+@use "src/assets/styles/colors";
+
 .container {
   display: flex;
   justify-content: center;
@@ -36,4 +38,17 @@
     margin-top: 15px;
     width: 100px;
   }
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  align-self: center;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: colors.$text_dark_gray;
+  font-weight: 500;
 }

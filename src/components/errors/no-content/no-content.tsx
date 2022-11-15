@@ -33,8 +33,8 @@ export const NoContent = memo(
 
     return (
       <div className={`${styles.container} ${styles[size]} ${className}`}>
-        <h4>{title}</h4>
-        <p>{subtitle}</p>
+        <h4 className={styles.title}>{title}</h4>
+        <p className={styles.subtitle}>{subtitle}</p>
         {showBtn && (
           <button type="button" onClick={handleClick}>
             {btnText}

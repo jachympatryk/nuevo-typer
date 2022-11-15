@@ -21,7 +21,12 @@ export const AllUserPredictions: React.FC<Props> = ({ predictions, loading, refr
 
   return (
     <div className={styles.container}>
-      {showNoContent && <NoContent />}
+      {showNoContent && (
+        <NoContent
+          title="Aktualnie nie masz żadnych typów"
+          subtitle="Przejdź do sekcji meczów do typowania i obstaw swój pierwszy mecz"
+        />
+      )}
       {showContent && (
         <div className={styles.content}>
           {predictions.sort(sortPredictions).map((prediction) => (
