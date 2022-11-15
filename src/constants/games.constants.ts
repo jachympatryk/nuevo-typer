@@ -535,4 +535,147 @@ export const games: Omit<GameModel, "id">[] = [
     round: "Faza grupowa - mecz 3",
     group: "G",
   },
+
+  // groups ended
+
+  {
+    hostTeam: "1A",
+    guestTeam: "2B",
+    date: "2022-12-03T16:00:00+0100",
+    stadium: "Al Rayyan Stadium",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1C",
+    guestTeam: "2D",
+    date: "2022-12-03T20:00:00+0100",
+    stadium: "Ahmed bin Ali Stadium, Ar-Rajjan",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1B",
+    guestTeam: "2A",
+    date: "2022-12-04T16:00:00+0100",
+    stadium: "Al Bayt Stadium, Al Chaur",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1D",
+    guestTeam: "2C",
+    date: "2022-12-04T20:00:00+0100",
+    stadium: "Al Thumama Stadium, Doha",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1E",
+    guestTeam: "2F",
+    date: "2022-12-05T16:00:00+0100",
+    stadium: "Al Janoub Stadium, Al Wakra",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1G",
+    guestTeam: "2H",
+    date: "2022-12-05T20:00:00+0100",
+    stadium: "Stadium 974, Doha",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1F",
+    guestTeam: "2E",
+    date: "2022-12-06T16:00:00+0100",
+    stadium: "Education City Stadium, Al Rajjan",
+    result: null,
+    round: "1/8 finału",
+  },
+  {
+    hostTeam: "1H",
+    guestTeam: "2G",
+    date: "2022-12-06T20:00:00+0100",
+    stadium: "Lusail Stadium, Lusajl",
+    result: null,
+    round: "1/8 finału",
+  },
+
+  // quarter finals
+
+  {
+    hostTeam: "1E/2F",
+    guestTeam: "1G/2H",
+    date: "2022-12-09T16:00:00+0100",
+    stadium: "Education City Stadium, Al Rajjan",
+    result: null,
+    round: "Ćwierćfinał",
+  },
+  {
+    hostTeam: "1A/2B",
+    guestTeam: "1C/2D",
+    date: "2022-12-09T20:00:00+0100",
+    stadium: "Lusail Stadium, Lusajl",
+    result: null,
+    round: "Ćwierćfinał",
+  },
+  {
+    hostTeam: "1F/2E",
+    guestTeam: "1H/2G",
+    date: "2022-12-10T16:00:00+0100",
+    stadium: "Al Thumama Stadium, Doha",
+    result: null,
+    round: "Ćwierćfinał",
+  },
+  {
+    hostTeam: "1B/2A",
+    guestTeam: "1D/2C",
+    date: "2022-12-10T20:00:00+0100",
+    stadium: "Al Bayt Stadium, Al Chaur",
+    result: null,
+    round: "Ćwierćfinał",
+  },
+
+  // semi finals
+
+  {
+    hostTeam: "Zwycięzca 1 ćwierćfinału",
+    guestTeam: "Zwycięzca 2 ćwierćfinału",
+    date: "2022-12-13T20:00:00+0100",
+    stadium: "Lusail Stadium, Lusajl",
+    result: null,
+    round: "Półfinał",
+  },
+  {
+    hostTeam: "Zwycięzca 3 ćwierćfinału",
+    guestTeam: "Zwycięzca 4 ćwierćfinału",
+    date: "2022-12-14T20:00:00+0100",
+    stadium: "Al Bayt Stadium, Al Chaur",
+    result: null,
+    round: "Półfinał",
+  },
+
+  // 3rd place
+
+  {
+    hostTeam: "Przegrany 1 półfinału",
+    guestTeam: "Przegrany 2 półfinału",
+    date: "2022-12-17T16:00:00+0100",
+    stadium: "Khalifa International Stadium, Al Rajjan",
+    result: null,
+    round: "Mecz o 3 miejsce",
+  },
+
+  // final
+
+  {
+    hostTeam: "Zwycięzca 1 półfinału",
+    guestTeam: "Zwycięzca 2 półfinału",
+    date: "2022-12-18T16:00:00+0100",
+    stadium: "Lusail Stadium, Lusajl",
+    result: null,
+    round: "Finał",
+  },
 ];
