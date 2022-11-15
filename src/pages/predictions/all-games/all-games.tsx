@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-import { Game, Loader } from "components";
+import { FetchingError, Game, Loader } from "components";
 import { useFirebaseFetch } from "hooks";
 import { getCurrentRoundGames } from "firestore";
 import { GameModel, PredictionModel } from "models";
@@ -17,7 +17,7 @@ export const AllGames: React.FC<Props> = ({ predictions, refreshPredictions }) =
   const [games, setGames] = useState<GameModel[]>([]);
 
   const gameData = useFirebaseFetch(getCurrentRoundGames, { onSuccess: (response) => setGames(response || []) });
-  const { loading } = gameData;
+  const { loading, error } = gameData;
 
   const gamesToDisplay = useMemo(() => {
     const currentRoundGames = games.filter((game) => !predictions.some((prediction) => prediction.gameId === game.id));
@@ -26,9 +26,12 @@ export const AllGames: React.FC<Props> = ({ predictions, refreshPredictions }) =
     return sortedGames;
   }, [predictions, games]);
 
+  const showError = Boolean(error && !loading);
+
   return (
     <div className={styles.container}>
       {loading && <Loader />}
+      {showError && <FetchingError />}
       <div className={styles.content}>
         {!loading &&
           gamesToDisplay
