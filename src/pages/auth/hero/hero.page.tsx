@@ -1,5 +1,4 @@
 import React from "react";
-import { Typography } from "@mui/material";
 import { Button } from "react-modern-components";
 import { useNavigate } from "react-router-dom";
 
@@ -24,17 +23,16 @@ export const HeroPage = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.texts}>
-            <Typography variant="h1">Nuevo palace typer</Typography>
-            <Typography variant="h3">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quia soluta. Dolore ducimus ipsam libero
-              non provident rerum totam vero!
-            </Typography>
+            <h4 className={styles.title}>Nuevo Palace typer</h4>
+            <p className={styles.subtitle}>
+              Wejdź do gry razem z Nuevo. Typujemy wyniki mistrzostw świata i bawimy się razem!
+            </p>
           </div>
           <div className={styles.buttons}>
-            <Button className={styles.loginButton} onClick={openLoginPage}>
+            <Button className={styles.loginButton} onClick={openLoginPage} variant="contained">
               Zaloguj się
             </Button>
-            <Button className={styles.registerButton} onClick={openRegisterPage}>
+            <Button className={styles.registerButton} onClick={openRegisterPage} variant="outlined">
               Stwórz konto
             </Button>
           </div>

@@ -16,8 +16,6 @@ import { GAMES_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { loginSchema, initialLoginValues } from "../login.constants";
 
-// import { ReactComponent as GoogleLogo } from "assets/icons/google-logo.svg";
-
 import styles from "../../auth.module.scss";
 
 export const LoginForm: React.FC = () => {
@@ -62,12 +60,6 @@ export const LoginForm: React.FC = () => {
       <Form className={styles.form}>
         <FormInput name="email" label="Email" size="large" />
         <FormInput name="password" label="Hasło" type="password" size="large" />
-        <p className={styles.linkText}>
-          Zapomniałeś hasła?{" "}
-          <Link to="/" className={styles.linkSpan}>
-            Przypomnij
-          </Link>
-        </p>
 
         <div className={styles.row}>
           <p className={styles.linkText}>
@@ -78,7 +70,7 @@ export const LoginForm: React.FC = () => {
           </p>
 
           <div className={styles.buttonRow}>
-            <Button disabled={false} type="submit" variant="contained" size="large" className={styles.submitButton}>
+            <Button disabled={false} type="submit" variant="contained" className={styles.submitButton}>
               Zaloguj się
             </Button>
           </div>

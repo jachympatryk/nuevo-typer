@@ -3,7 +3,7 @@ import React from "react";
 import { FormStructureProps } from "./form-structure.types";
 
 import { ReactComponent as Logo } from "assets/icons/logo.svg";
-import background from "assets/images/background.webp";
+import background from "assets/images/background.png";
 
 import styles from "./form-structure.module.scss";
 

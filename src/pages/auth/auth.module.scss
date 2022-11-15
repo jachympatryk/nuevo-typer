@@ -62,7 +62,7 @@
 }
 
 .linkSpan {
-  color: colors.$blue;
+  color: colors.$red_dark;
   text-decoration: underline !important;
 }
 
@@ -71,7 +71,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 64px;
+  margin-top: 32px;
 
   @media screen and (min-width: breakpoints.$media_s) {
     flex-direction: row;
@@ -85,6 +85,17 @@
   font-size: 16px;
   text-transform: unset;
   gap: 24px;
+  font-weight: 500;
+  background-color: colors.$red_dark;
+  font-family: Raleway, sans-serif;
+
+  &:hover {
+    background-color: colors.$red_dark;
+  }
+
+  &:focus {
+    background-color: colors.$red_dark;
+  }
 }
 
 .buttonRow {

@@ -55,33 +55,41 @@
 .texts {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  color: colors.$text_dark_gray !important;
+}
 
-  h1 {
-    font-size: 32px !important;
-    font-family: Raleway, sans-serif !important;
-  }
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  align-self: flex-start;
+  margin-bottom: 0;
+}
 
-  h3 {
-    font-size: 20px !important;
-    font-family: Raleway, sans-serif !important;
-  }
+.subtitle {
+  font-size: 16px;
+  color: colors.$text_dark_gray;
+  font-weight: 500;
 }
 
 .buttons {
   display: flex;
-  gap: 5px;
+  gap: 16px;
 }
 
 .loginButton {
   flex-grow: 1 !important;
   max-width: 300px;
   font-family: Raleway, sans-serif !important;
+  background-color: colors.$red_dark;
+
+  &:hover,
+  &:focus {
+    background-color: colors.$red_dark;
+  }
 }
 
 .registerButton {
   font-family: Raleway, sans-serif !important;
   background-color: transparent !important;
-  color: colors.$text_dark_gray !important;
+  color: colors.$red_dark;
+  border-color: colors.$red_dark;
 }

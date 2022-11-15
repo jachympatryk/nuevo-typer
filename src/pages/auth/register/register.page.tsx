@@ -98,13 +98,7 @@ export const RegisterPage: React.FC = () => {
                 </p>
 
                 <div className={styles.buttonRow}>
-                  <Button
-                    disabled={isSubmitting}
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    className={styles.submitButton}
-                  >
+                  <Button disabled={isSubmitting} type="submit" variant="contained" className={styles.submitButton}>
                     Zarejestruj się
                   </Button>
                 </div>
