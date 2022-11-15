@@ -22,7 +22,6 @@ export const getCurrentRoundGames = () => {
   const currentRound = getCurrentRound(new Date());
 
   const gamesRef = getCollectionRef<GameModel[]>(firestoreCollections.games);
-  // todo: order by
   const gamesQuery = query(gamesRef, where("round", "==", currentRound));
 
   return getDocs(gamesQuery);

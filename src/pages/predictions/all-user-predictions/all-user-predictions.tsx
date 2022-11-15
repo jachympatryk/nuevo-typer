@@ -15,12 +15,16 @@ export const AllUserPredictions: React.FC<Props> = ({ predictions, loading, refr
   const showNoContent = Boolean(!loading && !predictions.length);
   const showContent = Boolean(!loading && predictions.length);
 
+  const sortPredictions = (first: PredictionModel, second: PredictionModel) => {
+    return +first.gameId - +second.gameId;
+  };
+
   return (
     <div className={styles.container}>
       {showNoContent && <NoContent />}
       {showContent && (
         <div className={styles.content}>
-          {predictions.map((prediction) => (
+          {predictions.sort(sortPredictions).map((prediction) => (
             <GamePrediction key={prediction.gameId} prediction={prediction} onEditSuccess={refreshPredictions} />
           ))}
         </div>
