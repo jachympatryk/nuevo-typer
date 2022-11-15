@@ -69,7 +69,15 @@ export const Group: React.FC<Props> = ({ group }) => {
         return { id: key, ...value };
       });
 
-      return array.sort((first, second) => second.points - first.points);
+      return array.sort((first, second) => {
+        if (first.points === second.points) {
+          const firstBalance = first.scored - first.conceded;
+          const secondBalance = second.scored - second.conceded;
+          return secondBalance - firstBalance;
+        }
+
+        return second.points - first.points;
+      });
     }
 
     return [];
@@ -82,6 +90,16 @@ export const Group: React.FC<Props> = ({ group }) => {
       </div>
       <section className={styles.content}>
         {loading && <Loader height="300px" />}
+        {!loading && (
+          <div className={styles.gridHeader}>
+            <p />
+            <p className={styles.teamHeader}>Zespół</p>
+            <p>BZ</p>
+            <p>BS</p>
+            <p>+/-</p>
+            <p className={styles.pointsHeader}>Pkt</p>
+          </div>
+        )}
         {!loading &&
           values.map((team) => {
             const Flag = flags[team.id];
