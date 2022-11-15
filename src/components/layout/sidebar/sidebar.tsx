@@ -42,6 +42,7 @@ export const Sidebar: React.FC = () => {
         <div className={styles.navigation}>
           {menuItems.map(({ path, label }) => (
             <Link
+              key={path}
               to={path}
               className={classNames(styles.link, path === pathname && styles.activeSection)}
               onClick={handleMenuToggle}
@@ -55,7 +56,6 @@ export const Sidebar: React.FC = () => {
         <IconButton variant="none" onClick={logout} className={styles.logout}>
           <Logout />
         </IconButton>
-        {/* <Logout className={styles.logout} onClick={logout} /> */}
       </div>
     </aside>
   );

@@ -25,7 +25,7 @@ export const CurrentRoundGames: React.FC = () => {
       {!loading && (
         <div className={styles.content}>
           {data?.sort(sortByDates).map((game) => (
-            <Game game={game} noEditable />
+            <Game key={game.id} game={game} noEditable />
           ))}
         </div>
       )}

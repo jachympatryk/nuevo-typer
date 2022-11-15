@@ -16,7 +16,9 @@ export const AllGamesList: React.FC = () => {
     <div className={styles.container}>
       {loading && <Loader />}
       {showError && <FetchingError />}
-      <div className={styles.content}>{!loading && data?.map((game) => <Game game={game} noEditable />)}</div>
+      <div className={styles.content}>
+        {!loading && data?.map((game) => <Game key={game.id} game={game} noEditable />)}
+      </div>
     </div>
   );
 };
