@@ -26,7 +26,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
   const { user } = useSelector((state: RootState) => state.auth);
 
   const { enqueueSnackbar } = useSnackbar();
-  const { date, result, stadium, hostTeam, guestTeam, round, hostId, guestId } = game;
+  const { date, result, stadium, hostTeam, guestTeam, round } = game;
   const { canEdit, editToDate } = canEditGame(game);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -46,8 +46,8 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
   const currentRound = getCurrentRound(new Date());
   const disabled = currentRound !== round;
 
-  const HostIcon = flags[hostId];
-  const GuestIcon = flags[guestId];
+  const HostIcon = game?.hostId ? flags[game.hostId] : null;
+  const GuestIcon = game?.guestId ? flags[game.guestId] : null;
 
   const submitData = async (data: GameResult) => {
     if (user) {
@@ -74,7 +74,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
             <h5 className={styles.teamName}>{hostTeam}</h5>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            <HostIcon className={styles.flag} />
+            {HostIcon ? <HostIcon className={styles.flag} /> : <div className={styles.unknownFlag} />}
             {isEditing && (
               <FormInput
                 label=""
@@ -127,7 +127,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
             <h5 className={styles.teamName}>{guestTeam}</h5>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            <GuestIcon className={styles.flag} />
+            {GuestIcon ? <GuestIcon className={styles.flag} /> : <div className={styles.unknownFlag} />}
             {isEditing && (
               <FormInput
                 className={styles.guestTextField}

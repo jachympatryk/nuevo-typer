@@ -36,7 +36,7 @@ export const Group: React.FC<Props> = ({ group }) => {
 
     if (!isGroupResultsEmpty) {
       games?.forEach((game) => {
-        if (game.result) {
+        if (game.result && game?.hostId && game?.guestId) {
           if (game.result.host > game.result.guest) {
             groupResults[game.hostId].points += 3;
             groupResults[game.guestId].points += 0;

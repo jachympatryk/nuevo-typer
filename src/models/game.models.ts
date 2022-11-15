@@ -17,9 +17,9 @@ export type Group = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
 
 export type GameModel = {
   id: string;
-  hostId: string;
+  hostId?: string;
   hostTeam: string;
-  guestId: string;
+  guestId?: string;
   guestTeam: string;
   date: Date | string;
   stadium: string;

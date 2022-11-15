@@ -69,8 +69,8 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
 
   if (!game) return null;
 
-  const HostIcon = flags[game.hostId];
-  const GuestIcon = flags[game.guestId];
+  const HostIcon = game.hostId ? flags[game.hostId] : null;
+  const GuestIcon = game.guestId ? flags[game.guestId] : null;
 
   return (
     <Formik initialValues={values} onSubmit={submitData}>
@@ -80,7 +80,7 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
             <h5 className={styles.teamName}>{game.hostTeam}</h5>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            <HostIcon className={styles.flag} />
+            {HostIcon ? <HostIcon className={styles.flag} /> : <div className={styles.unknownFlag} />}
             {!isEditing && (
               <h4 className={styles.predictedResult}>
                 <span className={styles.resultCaption}>Twój typ:</span> {prediction.predictedResult.host}
@@ -144,7 +144,7 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
             <h5 className={styles.teamName}>{game.guestTeam}</h5>
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            <GuestIcon className={styles.flag} />
+            {GuestIcon ? <GuestIcon className={styles.flag} /> : <div className={styles.unknownFlag} />}
             {!isEditing && (
               <h4 className={styles.predictedResult}>
                 <span className={styles.resultCaption}>Twój typ: </span>
