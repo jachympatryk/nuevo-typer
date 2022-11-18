@@ -56,7 +56,7 @@
   width: auto;
   transform: translateX(-50%);
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8) !important;
   fill: colors.$white !important;
   stroke: colors.$white !important;
 
