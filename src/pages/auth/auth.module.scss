@@ -86,15 +86,15 @@
   text-transform: unset;
   gap: 24px;
   font-weight: 500;
-  background-color: colors.$red_dark;
+  background-color: colors.$red_dark !important;
   font-family: Raleway, sans-serif;
 
   &:hover {
-    background-color: colors.$red_dark;
+    background-color: colors.$red_dark !important;
   }
 
   &:focus {
-    background-color: colors.$red_dark;
+    background-color: colors.$red_dark !important;
   }
 }
 

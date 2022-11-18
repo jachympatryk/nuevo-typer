@@ -79,17 +79,17 @@
   flex-grow: 1 !important;
   max-width: 300px;
   font-family: Raleway, sans-serif !important;
-  background-color: colors.$red_dark;
+  background-color: colors.$red_dark !important;
 
   &:hover,
   &:focus {
-    background-color: colors.$red_dark;
+    background-color: colors.$red_dark !important;
   }
 }
 
 .registerButton {
   font-family: Raleway, sans-serif !important;
   background-color: transparent !important;
-  color: colors.$red_dark;
-  border-color: colors.$red_dark;
+  color: colors.$red_dark !important;
+  border-color: colors.$red_dark !important;
 }
