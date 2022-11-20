@@ -103,7 +103,12 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
 
           <div className={styles.info}>
             <p className={styles.dateCaption}>{date}</p>
-            <p className={styles.stadium}>{game.round}</p>
+            <p className={styles.stadium}>{game?.round}</p>
+            {game?.group ? (
+              <p className={styles.stadium}>
+                <strong>Grupa {game.group}</strong>
+              </p>
+            ) : null}
 
             {disabled && <p className={styles.caption}>Edycja zablokowana</p>}
 

@@ -12,7 +12,7 @@ export const canEditGame = (game: GameModel | null): { canEdit: boolean; editToD
   if (!game) return { canEdit: false };
 
   const matchDate = new Date(game.date);
-  const editToDate = subtractHours(matchDate, 1);
+  const editToDate = subtractHours(matchDate, 0);
 
   const currentRound = getCurrentRound(new Date());
 

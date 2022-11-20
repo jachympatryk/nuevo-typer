@@ -26,7 +26,7 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
   const { user } = useSelector((state: RootState) => state.auth);
 
   const { enqueueSnackbar } = useSnackbar();
-  const { date, result, stadium, hostTeam, guestTeam, round } = game;
+  const { date, result, stadium, hostTeam, guestTeam, round, group } = game;
   const { canEdit, editToDate } = canEditGame(game);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -93,6 +93,11 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
             <p className={styles.stadium}>{stadium}</p>
             <p className={styles.dateCaption}>{gameDate}</p>
             <p className={styles.stadium}>{round}</p>
+            {group ? (
+              <p className={styles.stadium}>
+                <strong>Grupa {group}</strong>
+              </p>
+            ) : null}
 
             {!noEditable && disabled && <p className={styles.caption}>Edycja zablokowana</p>}
 
