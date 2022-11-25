@@ -7,7 +7,7 @@ export const subtractHours = (date: Date, hoursToSubtract: number) => {
   return date;
 };
 
-export const canEditGame = (game: GameModel | null): { canEdit: boolean; editToDate?: Date } => {
+export const canEditGame = (game?: GameModel | null): { canEdit: boolean; editToDate?: Date } => {
   // check if user can edit the game - 1 hour before start
   if (!game) return { canEdit: false };
 

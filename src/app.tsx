@@ -4,9 +4,11 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useDidUpdate } from "@better-typed/react-lifecycle-hooks";
 import { onAuthStateChanged } from "firebase/auth";
 
-import { PageRoute } from "components";
-import { setUser, setToken, RootState } from "store";
+import { PageRoute, Loader } from "components";
+import { setUser, setToken, RootState, setGames } from "store";
 import { mapUserData } from "utils";
+import { useFirebaseFetch } from "hooks";
+import { getAllGames } from "firestore";
 import { HERO_PAGE, LOGIN_PAGE, LOGOUT_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { routes } from "config/routes.config";
@@ -22,6 +24,14 @@ export const App: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const [isLoading, setLoading] = useState<boolean>(false);
+
+  const { loading: areGamesLoading } = useFirebaseFetch(getAllGames, {
+    condition: Boolean(user),
+    dependencies: [user],
+    onSuccess: (data) => {
+      dispatch(setGames(data || []));
+    },
+  });
 
   useDidUpdate(
     () => {
@@ -61,8 +71,8 @@ export const App: React.FC = () => {
     true,
   );
 
-  if (isLoading) {
-    return <p>Loading...</p>;
+  if (isLoading || areGamesLoading) {
+    return <Loader height="100vh" />;
   }
 
   return (
