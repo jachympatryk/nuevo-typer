@@ -1,23 +1,23 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-import { FetchingError, Game, Loader } from "components";
-import { useFirebaseFetch } from "hooks";
-import { getAllGames } from "firestore";
+import { Game, NoContent } from "components";
+import { RootState } from "store";
 
 import styles from "./all-games-list.module.scss";
 
 export const AllGamesList: React.FC = () => {
-  const gameData = useFirebaseFetch(getAllGames);
-  const { data, loading, error } = gameData;
+  const { games } = useSelector((state: RootState) => state.games);
 
-  const showError = Boolean(error && !loading);
+  const showNoContent = games.length === 0;
 
   return (
     <div className={styles.container}>
-      {loading && <Loader />}
-      {showError && <FetchingError />}
+      {showNoContent && <NoContent />}
       <div className={styles.content}>
-        {!loading && data?.map((game) => <Game key={game.id} game={game} noEditable />)}
+        {games.map((game) => (
+          <Game key={game.id} game={game} noEditable />
+        ))}
       </div>
     </div>
   );

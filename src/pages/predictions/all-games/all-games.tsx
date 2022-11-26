@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-import { FetchingError, Game, Loader } from "components";
-import { useFirebaseFetch } from "hooks";
-import { getCurrentRoundGames } from "firestore";
-import { GameModel, PredictionModel } from "models";
+import { Game } from "components";
+import { PredictionModel } from "models";
 import { getDateTime } from "utils";
+import { getCurrentRound } from "utils/game-round.utils";
+import { RootState } from "store";
 
 import styles from "./all-games.module.scss";
 
@@ -14,10 +15,11 @@ interface Props {
 }
 
 export const AllGames: React.FC<Props> = ({ predictions, refreshPredictions }) => {
-  const [games, setGames] = useState<GameModel[]>([]);
+  const currentRound = useMemo(() => getCurrentRound(new Date()), []);
 
-  const gameData = useFirebaseFetch(getCurrentRoundGames, { onSuccess: (response) => setGames(response || []) });
-  const { loading, error } = gameData;
+  const { games: savedGames } = useSelector((state: RootState) => state.games);
+
+  const games = savedGames.filter((game) => game.round === currentRound);
 
   const gamesToDisplay = useMemo(() => {
     const currentRoundGames = games.filter((game) => !predictions.some((prediction) => prediction.gameId === game.id));
@@ -26,17 +28,14 @@ export const AllGames: React.FC<Props> = ({ predictions, refreshPredictions }) =
     return sortedGames;
   }, [predictions, games]);
 
-  const showError = Boolean(error && !loading);
-
   return (
     <div className={styles.container}>
-      {loading && <Loader />}
-      {showError && <FetchingError />}
       <div className={styles.content}>
-        {!loading &&
-          gamesToDisplay
-            .sort((first, second) => new Date(first.date).getTime() - new Date(second.date).getTime())
-            .map((game) => <Game key={game.id} game={game} onSuccess={refreshPredictions} />)}
+        {gamesToDisplay
+          .sort((first, second) => new Date(first.date).getTime() - new Date(second.date).getTime())
+          .map((game) => (
+            <Game key={game.id} game={game} onSuccess={refreshPredictions} />
+          ))}
       </div>
     </div>
   );

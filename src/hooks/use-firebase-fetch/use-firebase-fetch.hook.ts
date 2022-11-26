@@ -16,6 +16,7 @@ export const useFirebaseFetch = <T>(
 
   const handleFetch = () => {
     if (loading && fetched) return;
+    if (options?.condition === false) return;
 
     setLoading(true);
     setError(null);

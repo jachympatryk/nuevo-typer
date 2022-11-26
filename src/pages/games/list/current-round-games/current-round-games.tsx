@@ -1,34 +1,32 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-import { FetchingError, Game, Loader } from "components";
-import { useFirebaseFetch } from "hooks";
-import { getCurrentRoundGames } from "firestore";
+import { Game } from "components";
 import { getDateTime } from "utils";
 import { GameModel } from "models";
+import { getCurrentRound } from "utils/game-round.utils";
+import { RootState } from "store";
 
 import styles from "./current-round-games.module.scss";
 
 export const CurrentRoundGames: React.FC = () => {
-  const gameData = useFirebaseFetch(getCurrentRoundGames);
-  const { data, loading, error } = gameData;
+  const currentRound = useMemo(() => getCurrentRound(new Date()), []);
+
+  const { games } = useSelector((state: RootState) => state.games);
+
+  const data = games.filter((game) => game.round === currentRound);
 
   const sortByDates = (first: GameModel, second: GameModel) => {
     return getDateTime(first.date) - getDateTime(second.date);
   };
 
-  const showError = Boolean(error && !loading);
-
   return (
     <div className={styles.container}>
-      {showError && <FetchingError />}
-      {loading && <Loader />}
-      {!loading && (
-        <div className={styles.content}>
-          {data?.sort(sortByDates).map((game) => (
-            <Game key={game.id} game={game} noEditable />
-          ))}
-        </div>
-      )}
+      <div className={styles.content}>
+        {data?.sort(sortByDates).map((game) => (
+          <Game key={game.id} game={game} noEditable />
+        ))}
+      </div>
     </div>
   );
 };

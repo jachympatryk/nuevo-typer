@@ -8,11 +8,10 @@ import { useSnackbar } from "notistack";
 import { calculatePoints, canEditGame } from "utils";
 import { GamePredictionProps } from "./game-prediction.types";
 import { getCurrentRound } from "utils/game-round.utils";
-import { createPrediction, getSingleGame } from "firestore";
+import { createPrediction } from "firestore";
 import { RootState } from "store";
 import { CreatePredictionData } from "firestore/predictions/predictions.types";
 import { GameResult } from "models";
-import { useFirebaseFetch } from "hooks";
 import { flags } from "constants/flags.constants";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
@@ -21,13 +20,14 @@ import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
 import styles from "./game-prediction.module.scss";
 
 export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, className, onEditSuccess }) => {
-  const { user } = useSelector((state: RootState) => state.auth);
-
   const { enqueueSnackbar } = useSnackbar();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { games } = useSelector((state: RootState) => state.games);
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const { data: game } = useFirebaseFetch(() => getSingleGame(prediction.gameId));
+  const game = games.find((savedGame) => savedGame.id === prediction.gameId);
+
   const { canEdit, editToDate } = canEditGame(game);
 
   const date = game ? new Date(game.date).toLocaleString() : "-";

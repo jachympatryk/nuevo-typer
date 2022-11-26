@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { useDidUpdate } from "@better-typed/react-lifecycle-hooks";
+import { useSelector } from "react-redux";
 
 import { Group as GroupModel } from "models";
-import { useFirebaseFetch } from "hooks";
-import { getGamesFromGroup, getTeamsFromGroup } from "firestore";
+import { teams } from "constants/teams.constants";
 import { flags } from "constants/flags.constants";
-import { Loader } from "../loader/loader";
+import { RootState } from "store";
 
 import background from "assets/images/background.png";
 
@@ -21,21 +21,26 @@ type GroupResult = Record<string, Omit<GroupValues, "id">>;
 export const Group: React.FC<Props> = ({ group }) => {
   const [groupResult, setGroupResult] = useState<GroupResult | null>(null);
 
-  const { data: teams, loading: teamsLoading } = useFirebaseFetch(() => getTeamsFromGroup(group));
-  const { data: games, loading: gamesLoading } = useFirebaseFetch(() => getGamesFromGroup(group));
+  const { games } = useSelector((state: RootState) => state.games);
 
-  const loading = teamsLoading || gamesLoading;
+  const groupTeams = useMemo(() => {
+    return teams.filter((team) => team.group === group);
+  }, [group]);
+
+  const groupGames = useMemo(() => {
+    return games.filter((game) => game.group === group);
+  }, [games, group]);
 
   useDidUpdate(() => {
     const groupResults: GroupResult = {};
 
     // eslint-disable-next-line no-return-assign
-    teams?.forEach((team) => (groupResults[team.id] = { name: team.name, points: 0, scored: 0, conceded: 0 }));
+    groupTeams.forEach((team) => (groupResults[team.id] = { name: team.name, points: 0, scored: 0, conceded: 0 }));
 
     const isGroupResultsEmpty = Object.keys(groupResults).length === 0;
 
     if (!isGroupResultsEmpty) {
-      games?.forEach((game) => {
+      groupGames?.forEach((game) => {
         if (game.result && game?.hostId && game?.guestId) {
           if (game.result.host > game.result.guest) {
             groupResults[game.hostId].points += 3;
@@ -61,7 +66,7 @@ export const Group: React.FC<Props> = ({ group }) => {
 
       setGroupResult(groupResults);
     }
-  }, [teams, group]);
+  }, [groupTeams, group]);
 
   const values: GroupValues[] = useMemo(() => {
     if (groupResult) {
@@ -89,38 +94,34 @@ export const Group: React.FC<Props> = ({ group }) => {
         <p className={styles.group}>Grupa {group}</p>
       </div>
       <section className={styles.content}>
-        {loading && <Loader height="300px" />}
-        {!loading && (
-          <div className={styles.gridHeader}>
-            <p />
-            <p className={styles.teamHeader}>Zespół</p>
-            <p>BZ</p>
-            <p>BS</p>
-            <p>+/-</p>
-            <p className={styles.pointsHeader}>Pkt</p>
-          </div>
-        )}
-        {!loading &&
-          values.map((team) => {
-            const Flag = flags[team.id];
-            const balance = team.scored - team.conceded;
+        <div className={styles.gridHeader}>
+          <p />
+          <p className={styles.teamHeader}>Zespół</p>
+          <p>BZ</p>
+          <p>BS</p>
+          <p>+/-</p>
+          <p className={styles.pointsHeader}>Pkt</p>
+        </div>
+        {values.map((team) => {
+          const Flag = flags[team.id];
+          const balance = team.scored - team.conceded;
 
-            return (
-              <div key={team.id} className={styles.team}>
-                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                {/* @ts-ignore */}
-                <Flag style={{ height: "20px" }} />
-                <p className={styles.name}>{team.name}</p>
-                <p className={styles.caption}>{team.scored}</p>
-                <p className={styles.caption}>{team.conceded}</p>
-                <p className={styles.caption}>
-                  {balance > 0 ? "+" : ""}
-                  {balance}
-                </p>
-                <p className={styles.points}>{team.points}</p>
-              </div>
-            );
-          })}
+          return (
+            <div key={team.id} className={styles.team}>
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-ignore */}
+              <Flag style={{ height: "20px" }} />
+              <p className={styles.name}>{team.name}</p>
+              <p className={styles.caption}>{team.scored}</p>
+              <p className={styles.caption}>{team.conceded}</p>
+              <p className={styles.caption}>
+                {balance > 0 ? "+" : ""}
+                {balance}
+              </p>
+              <p className={styles.points}>{team.points}</p>
+            </div>
+          );
+        })}
       </section>
     </div>
   );
