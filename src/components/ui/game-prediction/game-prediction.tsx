@@ -63,6 +63,7 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
         enqueueSnackbar("Twój typ został zapisany.", {
           variant: "success",
         });
+        setIsEditing(false);
       } catch (error) {
         enqueueSnackbar("Błąd podczas edycji wyniku.", { variant: "error" });
       }

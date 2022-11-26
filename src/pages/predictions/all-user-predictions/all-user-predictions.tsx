@@ -16,7 +16,7 @@ export const AllUserPredictions: React.FC<Props> = ({ predictions, loading, onPr
   const showContent = Boolean(!loading && predictions.length);
 
   const sortPredictions = (first: PredictionModel, second: PredictionModel) => {
-    return +first.gameId - +second.gameId;
+    return +second.gameId - +first.gameId;
   };
 
   return (
