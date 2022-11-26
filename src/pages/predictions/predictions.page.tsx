@@ -19,6 +19,7 @@ export const PredictionsPage: React.FC = () => {
 
   const allPredictionData = useFirebaseFetch(() => getUserPredictions(user?.id || "-"), {
     dependencies: [user],
+    condition: Boolean(user),
     onSuccess: (allUsersPredictions) => {
       const predictions = allUsersPredictions?.sort((first, second) => +first.gameId - +second.gameId);
       setUserPredictions(predictions || []);
