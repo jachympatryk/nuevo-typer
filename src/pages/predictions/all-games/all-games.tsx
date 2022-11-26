@@ -11,10 +11,10 @@ import styles from "./all-games.module.scss";
 
 interface Props {
   predictions: PredictionModel[];
-  refreshPredictions: () => void;
+  onPredictionAdded: (prediction: PredictionModel) => void;
 }
 
-export const AllGames: React.FC<Props> = ({ predictions, refreshPredictions }) => {
+export const AllGames: React.FC<Props> = ({ predictions, onPredictionAdded }) => {
   const currentRound = useMemo(() => getCurrentRound(new Date()), []);
 
   const { games: savedGames } = useSelector((state: RootState) => state.games);
@@ -34,7 +34,7 @@ export const AllGames: React.FC<Props> = ({ predictions, refreshPredictions }) =
         {gamesToDisplay
           .sort((first, second) => new Date(first.date).getTime() - new Date(second.date).getTime())
           .map((game) => (
-            <Game key={game.id} game={game} onSuccess={refreshPredictions} />
+            <Game key={game.id} game={game} onSuccess={onPredictionAdded} />
           ))}
       </div>
     </div>
