@@ -13,7 +13,7 @@ import { flags } from "constants/flags.constants";
 import { createPrediction } from "firestore";
 import { RootState } from "store";
 import { CreatePredictionData } from "firestore/predictions/predictions.types";
-import { GameResult } from "models";
+import { GameResult, PredictionModel } from "models";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
 import { ReactComponent as AcceptIcon } from "assets/icons/accept.svg";
@@ -56,7 +56,14 @@ export const Game: React.FC<GameProps> = ({ game, className, noEditable = false,
       try {
         await createPrediction(details);
 
-        onSuccess?.();
+        const prediction: PredictionModel = {
+          gameId: game.id,
+          predictedResult: data,
+          userId: user.id,
+          userName: user.displayName,
+        };
+
+        onSuccess?.(prediction);
         enqueueSnackbar("Twój typ został zapisany. Mecz oraz edycja będzie możliwa w zakładce 'Twoje typy'.", {
           variant: "success",
         });

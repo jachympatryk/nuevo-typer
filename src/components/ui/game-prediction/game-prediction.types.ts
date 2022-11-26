@@ -4,5 +4,5 @@ export type GamePredictionProps = {
   prediction: PredictionModel;
   className?: string;
   noEditable?: boolean;
-  onEditSuccess?: () => void;
+  onEditSuccess?: (prediction: PredictionModel) => void;
 };

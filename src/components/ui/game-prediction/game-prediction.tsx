@@ -11,7 +11,7 @@ import { getCurrentRound } from "utils/game-round.utils";
 import { createPrediction } from "firestore";
 import { RootState } from "store";
 import { CreatePredictionData } from "firestore/predictions/predictions.types";
-import { GameResult } from "models";
+import { GameResult, PredictionModel } from "models";
 import { flags } from "constants/flags.constants";
 
 import { ReactComponent as CancelIcon } from "assets/icons/cancel.svg";
@@ -52,7 +52,14 @@ export const GamePrediction: React.FC<GamePredictionProps> = ({ prediction, clas
       try {
         await createPrediction(details);
 
-        onEditSuccess?.();
+        const updatedPrediction: PredictionModel = {
+          gameId: prediction.gameId,
+          predictedResult,
+          userId: user.id,
+          userName: user.displayName,
+        };
+
+        onEditSuccess?.(updatedPrediction);
         enqueueSnackbar("Twój typ został zapisany.", {
           variant: "success",
         });
