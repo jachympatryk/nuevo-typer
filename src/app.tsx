@@ -25,7 +25,7 @@ export const App: React.FC = () => {
 
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const { loading: areGamesLoading } = useFirebaseFetch(getAllGames, {
+  useFirebaseFetch(getAllGames, {
     condition: Boolean(user),
     dependencies: [user],
     onSuccess: (data) => {
@@ -71,7 +71,7 @@ export const App: React.FC = () => {
     true,
   );
 
-  if (isLoading || areGamesLoading) {
+  if (isLoading) {
     return <Loader height="100vh" />;
   }
 
