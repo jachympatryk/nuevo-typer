@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { Button, FormInput } from "react-modern-components";
-import { signInWithEmailAndPassword, User, AuthError } from "firebase/auth";
+import { signInWithEmailAndPassword, User, AuthError, setPersistence, browserLocalPersistence } from "firebase/auth";
 
 import { LoginData } from "../login.types";
 import { setUser, setToken } from "store";
@@ -41,15 +41,21 @@ export const LoginForm: React.FC = () => {
   };
 
   const handleSubmit = (values: LoginData, { setSubmitting }: FormikHelpers<LoginData>) => {
-    signInWithEmailAndPassword(auth, values.email, values.password)
-      .then(({ user }) => {
-        onLoginSuccess(user);
-      })
-      .catch((error: AuthError) => {
-        const errorName = error.code as FirebaseErrorType;
-        const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas logowania";
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        signInWithEmailAndPassword(auth, values.email, values.password)
+          .then(({ user }) => {
+            onLoginSuccess(user);
+          })
+          .catch((error: AuthError) => {
+            const errorName = error.code as FirebaseErrorType;
+            const message = FIREBASE_ERRORS[errorName] || "Wystąpił błąd podczas logowania";
 
-        enqueueSnackbar(message, { variant: "error" });
+            enqueueSnackbar(message, { variant: "error" });
+          });
+      })
+      .catch(() => {
+        enqueueSnackbar("Wystąpił błąd podczas logowania", { variant: "error" });
       });
 
     setSubmitting(false);
