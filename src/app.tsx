@@ -9,7 +9,7 @@ import { setUser, setToken, RootState, setGames } from "store";
 import { mapUserData } from "utils";
 import { useFirebaseFetch } from "hooks";
 import { getAllGames } from "firestore";
-import { HERO_PAGE, LOGIN_PAGE, LOGOUT_PAGE, REGISTER_PAGE } from "constants/routes.constants";
+import { GAMES_PAGE, HERO_PAGE, LOGIN_PAGE, LOGOUT_PAGE, REGISTER_PAGE } from "constants/routes.constants";
 import { STORAGE_FIELDS } from "constants/storage-fields.constants";
 import { routes } from "config/routes.config";
 import { auth } from "config/firebase.config";
@@ -49,7 +49,7 @@ export const App: React.FC = () => {
                 pathname.includes(LOGIN_PAGE.path) ||
                 pathname.includes(REGISTER_PAGE.path)
               ) {
-                // navigate(LANDING_PAGE.path);
+                navigate(GAMES_PAGE.path);
               }
 
               localStorage.setItem(STORAGE_FIELDS.token, idToken);
